@@ -1,0 +1,10 @@
+.layoutSider {
+    padding-top: 10px
+}
+
+.layoutHeader {
+    padding: 0;
+    display: flex;
+    background: transparent;
+    justify-content: space-between;
+}

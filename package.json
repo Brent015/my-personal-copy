@@ -4,15 +4,19 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "dev:admin": "turbo run dev --filter=admin",
+    "build:admin": "turbo run build --filter=admin",
+    "dev:traveller": "turbo run dev --filter=traveller",
+    "build:traveller": "turbo run build --filter=traveller",
+    "dev:bot": "turbo run dev --filter=bot",
+    "dev:backend": "turbo run dev --filter=@repo/backend",
+    "build:backend": "turbo run build --filter=@repo/backend",
+    "dev:shared": "turbo run dev --filter=@repo/shared",
+    "build:shared": "turbo run build --filter=@repo/shared",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "postinstall": "manypkg check"
-  },
-  "devDependencies": {
-    "@manypkg/cli": "^0.21.4",
-    "prettier": "^3.2.5",
-    "turbo": "^2.0.10",
-    "typescript": "^5.4.5"
+    "postinstall": "manypkg check",
+    "pkg:fix": "manypkg fix"
   },
   "engines": {
     "node": ">=18"
@@ -21,5 +25,11 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@manypkg/cli": "^0.21.4",
+    "prettier": "^3.2.5",
+    "turbo": "^2.0.10",
+    "typescript": "^5.3.3"
+  }
 }

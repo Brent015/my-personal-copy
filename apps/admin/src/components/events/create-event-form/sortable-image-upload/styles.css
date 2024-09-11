@@ -1,0 +1,54 @@
+/* EventDetailsSection.css */
+.ant-upload-list-picture-card {
+  margin-top: 16px !important;
+}
+
+.ant-upload-list-picture-card .ant-upload-list-item {
+  margin-bottom: 8px;
+}
+
+.ant-upload-list-item {
+  cursor: move;
+}
+
+.draggable-item {
+  transition:
+    transform 0.2s ease-in-out,
+    opacity 0.2s ease-in-out;
+}
+
+.draggable-item:hover {
+  z-index: 1;
+}
+
+.draggable-item.is-dragging {
+  z-index: 2;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.ant-upload-list-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.ant-upload-list-item-info {
+  transition: background-color 0.3s ease-in-out;
+}
+
+.ant-upload-list-item:hover .ant-upload-list-item-info {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.ant-upload-list-item-container {
+  animation: slide-up 0.3s ease-out;
+}

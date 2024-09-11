@@ -1,0 +1,22 @@
+.eventCalendar {
+    .eventDate {
+        background-color: rgba(255, 0, 0, 0.1);
+        &:hover {
+            background-color: red !important;
+            color: white;
+        }
+    }
+
+
+}
+
+.customHeader {
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f0f2f5;
+    border-top-right-radius: 16px;
+    border-top-left-radius: 16px;
+}
+
