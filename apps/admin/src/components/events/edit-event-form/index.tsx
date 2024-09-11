@@ -16,6 +16,7 @@ import EventFormHeader from "../event-form-header";
 const EditEventForm: React.FC<{ initialData: EventFormData }> = ({
   initialData,
 }) => {
+  console.log(initialData);
   const [activeSection, setActiveSection] = useState("eventDetails");
   const {
     control,

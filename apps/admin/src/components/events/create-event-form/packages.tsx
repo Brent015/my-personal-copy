@@ -199,7 +199,7 @@ const PackageDetailsSection: React.FC<PackageDetailsSectionProps> = ({
       <Tabs
         type="editable-card"
         items={items}
-        onEdit={(targetKey, action) => {
+        onEdit={(_, action) => {
           if (action === "add") {
             append({
               title: `Package ${fields.length + 1}`,

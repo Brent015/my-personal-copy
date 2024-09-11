@@ -84,7 +84,7 @@ const ScheduleSummary: React.FC<ScheduleSummaryViewProps> = ({ schedules }) => {
         size="small"
         dataSource={schedules}
         columns={columns}
-        rowKey={(record, index) => index!.toString()}
+        rowKey={(_, index) => index!.toString()}
         pagination={false}
       />
     </Card>

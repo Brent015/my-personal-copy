@@ -1,9 +1,5 @@
+import { Button, Space } from "antd";
 import React from "react";
-import { Button, Space, Typography, Layout } from "antd";
-import { ArrowLeftOutlined } from "@ant-design/icons";
-
-const { Title } = Typography;
-const { Header } = Layout;
 
 interface EventFormHeaderProps {
   eventName: string;

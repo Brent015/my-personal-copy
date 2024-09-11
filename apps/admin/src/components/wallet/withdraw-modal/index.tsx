@@ -10,9 +10,9 @@ interface WithdrawModalProps {
 
 const WithdrawModal: React.FC<WithdrawModalProps> = ({ visible, onClose }) => {
   const [form] = Form.useForm();
-  const [withdrawableAmount, setWithdrawableAmount] = useState(10000); // This should come from an API
+  const [withdrawableAmount] = useState(10000); // This should come from an API
 
-  const handleWithdraw = (values: any) => {
+  const handleWithdraw = (values: unknown) => {
     console.log("Withdraw:", values);
     // Here you would typically make an API call to process the withdrawal
     onClose();
