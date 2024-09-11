@@ -5,9 +5,11 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "postinstall": "manypkg check"
   },
   "devDependencies": {
+    "@manypkg/cli": "^0.21.4",
     "prettier": "^3.2.5",
     "turbo": "^2.0.10",
     "typescript": "^5.4.5"
