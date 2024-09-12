@@ -1,0 +1,8 @@
+.ant-table-column-sorter {
+    visibility: visible !important;
+  }
+  
+  .ant-table-column-sorter-up.active,
+  .ant-table-column-sorter-down.active {
+    color: #1890ff;
+  }

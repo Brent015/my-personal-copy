@@ -37,8 +37,8 @@ if (!rootElement.innerHTML) {
                 fontSize: 14,
               },
               Table: {
-                headerBg: "#f0f0f0",
-                headerColor: "#000000",
+                // headerBg: "#f0f0f0",
+                // headerColor: "#000000",
               },
             },
           }}

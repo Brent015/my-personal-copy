@@ -5,3 +5,13 @@
 }
 @tailwind components;
 @tailwind utilities;
+
+/* .ant-table-column-sorter {
+  visibility: visible !important;
+} */
+
+/* had to do this cuz were using tailwind */
+.ant-table-column-sorter-up.active,
+.ant-table-column-sorter-down.active {
+  color: #1890ff; /* primary color*/
+}
