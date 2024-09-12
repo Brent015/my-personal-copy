@@ -18,7 +18,7 @@ const OverallStatsComponent: React.FC<OverallStatsProps> = ({ stats }) => {
   return (
     <Row gutter={[16, 16]}>
       <Col xs={24} sm={12} md={8} lg={4}>
-        <Card>
+        <Card className="shadow-md">
           <Statistic
             title="Total Bookings"
             value={stats.totalBookings}
@@ -27,7 +27,7 @@ const OverallStatsComponent: React.FC<OverallStatsProps> = ({ stats }) => {
         </Card>
       </Col>
       <Col xs={24} sm={12} md={8} lg={4}>
-        <Card>
+        <Card className="shadow-md">
           <Statistic
             title="Total Revenue"
             value={stats.totalRevenue}
@@ -37,7 +37,7 @@ const OverallStatsComponent: React.FC<OverallStatsProps> = ({ stats }) => {
         </Card>
       </Col>
       <Col xs={24} sm={12} md={8} lg={4}>
-        <Card>
+        <Card className="shadow-md">
           <Statistic
             title="Completed Schedules"
             value={stats.completedSchedules}
@@ -46,7 +46,7 @@ const OverallStatsComponent: React.FC<OverallStatsProps> = ({ stats }) => {
         </Card>
       </Col>
       <Col xs={24} sm={12} md={8} lg={4}>
-        <Card>
+        <Card className="shadow-md">
           <Statistic
             title="Ongoing Schedules"
             value={stats.ongoingSchedules}
@@ -55,7 +55,7 @@ const OverallStatsComponent: React.FC<OverallStatsProps> = ({ stats }) => {
         </Card>
       </Col>
       <Col xs={24} sm={12} md={8} lg={4}>
-        <Card>
+        <Card className="shadow-md">
           <Statistic
             title="Upcoming Schedules"
             value={stats.upcomingSchedules}
@@ -64,7 +64,7 @@ const OverallStatsComponent: React.FC<OverallStatsProps> = ({ stats }) => {
         </Card>
       </Col>
       <Col xs={24} sm={12} md={8} lg={4}>
-        <Card>
+        <Card className="shadow-md">
           <Statistic
             title="Cancelled Schedules"
             value={stats.cancelledSchedules}

@@ -96,7 +96,7 @@ const TopEvents: React.FC = () => {
                   </div>
                 </div>
                 <Paragraph className="mb-2 text-base">
-                  <div className="grid grid-cols-2 gap-y-1 gap-x-4">
+                  <div className="grid grid-cols-1 gap-y-1 gap-x-4">
                     <div className="flex items-center space-x-2">
                       <UserOutlined />
                       <Text>{formatNumber(event.bookings)} bookings</Text>

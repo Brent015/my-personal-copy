@@ -2,7 +2,8 @@ import { useState } from "react";
 import { message } from "antd";
 import { Schedule } from "./types";
 
-export const useScheduleActions = () => {
+export const useScheduleActions = (initialSchedules: Schedule[] = []) => {
+  const [schedules, setSchedules] = useState<Schedule[]>(initialSchedules);
   const [editingSchedule, setEditingSchedule] = useState<Schedule | null>(null);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [isCollectionModalVisible, setIsCollectionModalVisible] =
@@ -10,6 +11,7 @@ export const useScheduleActions = () => {
   const [isAssignmentModalVisible, setIsAssignmentModalVisible] =
     useState(false);
   const [isCancelModalVisible, setIsCancelModalVisible] = useState(false);
+  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
 
   const handleEdit = (schedule: Schedule) => {
     setEditingSchedule(schedule);
@@ -31,17 +33,32 @@ export const useScheduleActions = () => {
     setIsCancelModalVisible(true);
   };
 
+  const handleAddSchedule = () => {
+    setIsAddModalVisible(true);
+  };
+
   const handleEditModalOk = (updatedSchedule: Schedule) => {
-    // Implement the logic to update the schedule
-    console.log("Updating schedule:", updatedSchedule);
+    setSchedules(
+      schedules.map((s) => (s.id === updatedSchedule.id ? updatedSchedule : s))
+    );
     message.success("Schedule updated successfully");
     setIsEditModalVisible(false);
   };
 
   const handleCollectionModalOk = (amount: number) => {
-    // Implement the logic to process the collection
-    console.log("Collecting payment:", amount);
-    message.success(`Payment of ${amount} collected`);
+    if (editingSchedule) {
+      const updatedSchedule = {
+        ...editingSchedule,
+        paid: editingSchedule.paid + amount,
+        toCollect: editingSchedule.toCollect - amount,
+      };
+      setSchedules(
+        schedules.map((s) =>
+          s.id === updatedSchedule.id ? updatedSchedule : s
+        )
+      );
+      message.success(`Payment of ${amount} collected`);
+    }
     setIsCollectionModalVisible(false);
   };
 
@@ -49,17 +66,45 @@ export const useScheduleActions = () => {
     coordinatorId: string,
     vehicleId: string
   ) => {
-    // Implement the logic to assign coordinator and vehicle
-    console.log("Assigning coordinator and vehicle:", coordinatorId, vehicleId);
-    message.success("Coordinator and vehicle assigned successfully");
+    if (editingSchedule) {
+      const updatedSchedule = { ...editingSchedule, coordinatorId, vehicleId };
+      setSchedules(
+        schedules.map((s) =>
+          s.id === updatedSchedule.id ? updatedSchedule : s
+        )
+      );
+      message.success("Coordinator and vehicle assigned successfully");
+    }
     setIsAssignmentModalVisible(false);
   };
 
-  const handleCancelModalOk = (reason: string) => {
-    // Implement the logic to cancel the schedule
-    console.log("Cancelling schedule:", editingSchedule?.id, "Reason:", reason);
-    message.success("Schedule cancelled successfully");
+  const handleCancelModalOk = () => {
+    if (editingSchedule) {
+      const updatedSchedule: Schedule = {
+        ...editingSchedule,
+        status: "Cancelled",
+        // Include all other properties of Schedule type here
+        // If any property is optional and might not exist on editingSchedule, provide a default value
+        color: editingSchedule.color || "#000000", // Provide a default color if it's optional
+        coordinatorId: editingSchedule.coordinatorId || undefined,
+        vehicleId: editingSchedule.vehicleId || undefined,
+        // Add any other properties that might be missing
+      };
+      setSchedules(
+        schedules.map((s) =>
+          s.id === updatedSchedule.id ? updatedSchedule : s
+        )
+      );
+      message.success("Schedule cancelled successfully");
+    }
     setIsCancelModalVisible(false);
+  };
+
+  const handleAddModalOk = (newSchedule: Omit<Schedule, "id">) => {
+    const scheduleWithId = { ...newSchedule, id: Date.now().toString() };
+    setSchedules([...schedules, scheduleWithId]);
+    message.success("New schedule added successfully");
+    setIsAddModalVisible(false);
   };
 
   const closeModals = () => {
@@ -67,23 +112,28 @@ export const useScheduleActions = () => {
     setIsCollectionModalVisible(false);
     setIsAssignmentModalVisible(false);
     setIsCancelModalVisible(false);
+    setIsAddModalVisible(false);
     setEditingSchedule(null);
   };
 
   return {
+    schedules,
     editingSchedule,
     isEditModalVisible,
     isCollectionModalVisible,
     isAssignmentModalVisible,
     isCancelModalVisible,
+    isAddModalVisible,
     handleEdit,
     handleCollection,
     handleAssignment,
     handleCancel,
+    handleAddSchedule,
     handleEditModalOk,
     handleCollectionModalOk,
     handleAssignmentModalOk,
     handleCancelModalOk,
+    handleAddModalOk,
     closeModals,
   };
 };

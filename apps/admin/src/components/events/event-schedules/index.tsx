@@ -26,6 +26,7 @@ import { sampleOverallStats } from "./types";
 import { useScheduleActions } from "./useScheduleActions";
 import { useSchedules } from "./useSchedules";
 import { ScheduleCalendar } from "./schedule-calendar";
+import { AddScheduleModal } from "./add-schedule";
 
 const { RangePicker } = DatePicker;
 
@@ -40,7 +41,9 @@ const EventSchedulesDashboard: React.FC = () => {
     isCollectionModalVisible,
     isAssignmentModalVisible,
     isCancelModalVisible,
+    isAddModalVisible,
     handleEdit,
+    handleAddSchedule,
     handleCollection,
     handleAssignment,
     handleCancel,
@@ -48,6 +51,7 @@ const EventSchedulesDashboard: React.FC = () => {
     handleCollectionModalOk,
     handleAssignmentModalOk,
     handleCancelModalOk,
+    handleAddModalOk,
     closeModals,
   } = useScheduleActions();
 
@@ -166,18 +170,16 @@ const EventSchedulesDashboard: React.FC = () => {
         onCancel={closeModals}
       />
 
-      {/* <AddScheduleModal
+      <AddScheduleModal
         visible={isAddModalVisible}
-        onOk={(newSchedule) => {
-          // Implement add new schedule functionality
-          console.log("New schedule added:", newSchedule);
-          setIsAddModalVisible(false);
-        }}
-        onCancel={() => setIsAddModalVisible(false)}
-      /> */}
+        onOk={handleAddModalOk}
+        onCancel={closeModals}
+        existingSchedules={schedules}
+      />
 
       <Tooltip title="Add new schedule">
         <Button
+          onClick={handleAddSchedule}
           type="primary"
           shape="circle"
           icon={<PlusOutlined />}

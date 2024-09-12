@@ -78,6 +78,7 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({
         { text: "Completed", value: "Completed" },
         { text: "Cancelled", value: "Cancelled" },
       ],
+      defaultFilteredValue: ["Upcoming", "Ongoing"],
       onFilter: (value, record) => record.status === value,
     },
     {
@@ -131,6 +132,7 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({
 
   return (
     <Table<Schedule>
+      pagination={false}
       columns={columns}
       dataSource={schedules}
       rowKey="id"

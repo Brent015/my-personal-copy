@@ -1,4 +1,5 @@
-import { Card, Image, List, Progress, Tag } from "antd";
+import { Card, Image, List, Progress, Tag, Typography } from "antd";
+const { Title } = Typography;
 
 const upcomingEvents = [
   {
@@ -46,7 +47,11 @@ const upcomingEvents = [
 const UpcomingEvents = () => {
   return (
     <Card
-      title="Upcoming Events"
+      title={
+        <Title level={4} className="mb-0">
+          Upcoming Schedules
+        </Title>
+      }
       extra={
         <a href="#" className="text-blue-500 hover:underline">
           View All

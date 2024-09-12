@@ -13,6 +13,7 @@ export interface Schedule {
   toCollect: number;
   coordinatorId?: string;
   vehicleId?: string;
+  color?: string;
 }
 
 export interface OverallStats {
@@ -92,7 +93,7 @@ export const sampleSchedules: Schedule[] = [
   },
   {
     id: "2",
-    eventName: "Boracay Island Adventure",
+    eventName: "Bali Beach Retreat",
     startDate: dayjs(),
     endDate: dayjs().add(3, "day"),
     bookings: 30,
@@ -106,7 +107,7 @@ export const sampleSchedules: Schedule[] = [
   },
   {
     id: "3",
-    eventName: "Palawan Underground River Tour",
+    eventName: "Bali Beach Retreat",
     startDate: dayjs().subtract(1, "week"),
     endDate: dayjs().subtract(5, "day"),
     bookings: 22,
@@ -120,7 +121,7 @@ export const sampleSchedules: Schedule[] = [
   },
   {
     id: "4",
-    eventName: "Siargao Surfing Experience",
+    eventName: "Bali Beach Retreat",
     startDate: dayjs().add(2, "week"),
     endDate: dayjs().add(2, "week").add(6, "day"),
     bookings: 12,
@@ -134,7 +135,7 @@ export const sampleSchedules: Schedule[] = [
   },
   {
     id: "5",
-    eventName: "Cebu Island Hopping",
+    eventName: "Bali Beach Retreat",
     startDate: dayjs().subtract(2, "day"),
     endDate: dayjs().add(1, "day"),
     bookings: 15,
