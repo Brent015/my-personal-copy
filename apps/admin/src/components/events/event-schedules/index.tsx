@@ -13,7 +13,6 @@ import {
   Radio,
   Row,
   Tooltip,
-  Typography,
 } from "antd";
 import { Dayjs } from "dayjs";
 import React, { useMemo, useState } from "react";
@@ -29,12 +28,10 @@ import { useSchedules } from "./useSchedules";
 import { ScheduleCalendar } from "./schedule-calendar";
 
 const { RangePicker } = DatePicker;
-const { Title } = Typography;
 
 const EventSchedulesDashboard: React.FC = () => {
   const [viewMode, setViewMode] = useState<"table" | "calendar">("table");
   const [dateRange, setDateRange] = useState<[Dayjs, Dayjs] | null>(null);
-  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
 
   const { schedules, loading, error } = useSchedules();
   const {
@@ -186,7 +183,6 @@ const EventSchedulesDashboard: React.FC = () => {
           icon={<PlusOutlined />}
           size="large"
           className="fixed bottom-8 right-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
-          onClick={() => setIsAddModalVisible(true)}
         />
       </Tooltip>
     </div>
