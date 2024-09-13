@@ -210,7 +210,7 @@ const SchedulesTable: React.FC = () => {
       key: "toCollect",
     },
     {
-      title: "Total earnings",
+      title: "Revenue",
       dataIndex: "totalEarnings",
       key: "totalEarnings",
     },

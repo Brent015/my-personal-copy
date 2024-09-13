@@ -138,7 +138,7 @@ const CreateScheduleForm: React.FC<CreateScheduleFormProps> = ({
     }
   };
 
-  const handleFormError = (errors: any) => {
+  const handleFormError = (errors: unknown) => {
     console.error("Form validation errors:", errors);
     setActiveKeys(fields.map((field) => field.id));
     message.error("Please correct the errors in the form.");

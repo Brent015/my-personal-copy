@@ -75,7 +75,7 @@ const CreateEventForm: React.FC = () => {
       [],
     ][currentStep];
 
-    const isStepValid = await trigger(fieldsToValidate as any);
+    const isStepValid = await trigger(fieldsToValidate as never);
     if (isStepValid) {
       setCurrentStep(currentStep + 1);
     } else {

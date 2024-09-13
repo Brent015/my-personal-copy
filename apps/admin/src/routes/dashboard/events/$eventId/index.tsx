@@ -48,14 +48,21 @@ function EventDetailsPage() {
                       to="/dashboard/events/$eventId/edit"
                       params={{ eventId: "1" }}
                     >
-                      Edit Details
+                      Edit
                     </Link>
                   ),
                 },
                 {
                   key: "3",
                   icon: <CalendarOutlined />,
-                  label: "View Schedules",
+                  label: (
+                    <Link
+                      to="/dashboard/events/$eventId/schedules"
+                      params={{ eventId: "1" }}
+                    >
+                      Schedules
+                    </Link>
+                  ),
                 },
               ],
             }}

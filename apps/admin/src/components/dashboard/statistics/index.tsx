@@ -79,7 +79,7 @@ const stats: Stat[] = [
     title: "Completed Schedules",
     value: monthlyData.completedSchedules.thisMonth,
     icon: <CalendarOutlined className="text-2xl" />,
-    tooltip: "Number of completed travel schedules this month",
+    tooltip: "Total completed schedules as of this month",
     comparison: renderComparison(monthlyData.completedSchedules),
   },
   {
@@ -100,7 +100,7 @@ const stats: Stat[] = [
     title: "Remaining Travelcoins",
     value: 95,
     icon: <StarOutlined className="text-2xl" />,
-    tooltip: "Current balance of Travelcoins available for use or distribution",
+    tooltip: "Total TravelCoins earned",
   },
 ];
 
@@ -108,7 +108,7 @@ const Statistics = () => {
   return (
     <div>
       <h1 className="text-2xl font-bold text-gray-800 mb-6">
-        Monthly Performance Dashboard
+        Performance Dashboard
       </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         {stats.map((stat, index) => (

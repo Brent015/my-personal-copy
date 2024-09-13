@@ -100,7 +100,6 @@ const EventSchedulesDashboard: React.FC = () => {
         <Row gutter={[16, 16]} className="mb-4 items-center">
           <Col xs={24} md={12}>
             <RangePicker
-              className="w-full"
               onChange={(dates) => setDateRange(dates as [Dayjs, Dayjs] | null)}
             />
           </Col>

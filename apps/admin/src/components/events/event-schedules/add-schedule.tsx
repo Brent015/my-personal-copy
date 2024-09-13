@@ -1,10 +1,16 @@
 import {
-    ColorPicker,
-    DatePicker,
-    Form,
-    Input,
-    InputNumber,
-    Modal
+  CalendarOutlined,
+  CarOutlined,
+  TeamOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
+import {
+  ColorPicker,
+  DatePicker,
+  Form,
+  InputNumber,
+  Modal,
+  Select,
 } from "antd";
 import dayjs, { Dayjs } from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
@@ -14,6 +20,24 @@ import { Schedule } from "./types";
 dayjs.extend(isBetween);
 
 const { RangePicker } = DatePicker;
+
+// Sample data for coordinators
+const sampleCoordinators = [
+  { id: "1", name: "John Doe" },
+  { id: "2", name: "Jane Smith" },
+  { id: "3", name: "Mike Johnson" },
+  { id: "4", name: "Sarah Williams" },
+  { id: "5", name: "Chris Lee" },
+];
+
+// Sample data for vehicles
+const sampleVehicles = [
+  { id: "1", name: "Van - Toyota HiAce" },
+  { id: "2", name: "Bus - Hyundai County" },
+  { id: "3", name: "Car - Honda Civic" },
+  { id: "4", name: "SUV - Ford Everest" },
+  { id: "5", name: "Minibus - Mercedes-Benz Sprinter" },
+];
 
 interface AddScheduleModalProps {
   visible: boolean;
@@ -69,25 +93,60 @@ export const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
     >
       <Form form={form} layout="vertical">
         <Form.Item
-          name="eventName"
-          label="Event Name"
-          rules={[{ required: true }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
           name="dateRange"
-          label="Date Range"
+          label={
+            <span className="flex items-center">
+              <CalendarOutlined className="mr-2" /> Date Range
+            </span>
+          }
           rules={[{ required: true }]}
         >
           <RangePicker disabledDate={disabledDate} className="w-full" />
         </Form.Item>
         <Form.Item
           name="maxCapacity"
-          label="Max Capacity"
+          label={
+            <span className="flex items-center">
+              <TeamOutlined className="mr-2" /> Max Guests
+            </span>
+          }
           rules={[{ required: true }]}
         >
           <InputNumber min={1} className="w-full" />
+        </Form.Item>
+        <Form.Item
+          label={
+            <span className="flex items-center">
+              <UserOutlined className="mr-2" /> Coordinator
+            </span>
+          }
+        >
+          <Select
+            className="w-full"
+            allowClear
+            placeholder="Select a coordinator"
+          >
+            {sampleCoordinators.map((coordinator) => (
+              <Select.Option key={coordinator.id} value={coordinator.id}>
+                {coordinator.name}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        <Form.Item
+          label={
+            <span className="flex items-center">
+              <CarOutlined className="mr-2" /> Vehicle
+            </span>
+          }
+        >
+          <Select className="w-full" allowClear placeholder="Select a vehicle">
+            {sampleVehicles.map((vehicle) => (
+              <Select.Option key={vehicle.id} value={vehicle.id}>
+                {vehicle.name}
+              </Select.Option>
+            ))}
+          </Select>
         </Form.Item>
         <Form.Item
           name="color"

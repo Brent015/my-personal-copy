@@ -45,6 +45,7 @@ const EventDetailsSection: React.FC<EventDetailsSectionProps> = ({
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Form.Item
+            required
             label="Event Title"
             validateStatus={error ? "error" : ""}
             help={error?.message}
@@ -59,6 +60,7 @@ const EventDetailsSection: React.FC<EventDetailsSectionProps> = ({
         control={control}
         render={({ field: { onChange, value }, fieldState: { error } }) => (
           <Form.Item
+            required
             label="Event Images"
             validateStatus={error ? "error" : ""}
             help={error?.message}
@@ -77,6 +79,8 @@ const EventDetailsSection: React.FC<EventDetailsSectionProps> = ({
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Form.Item
+            required
+            extra="An enticing preview to spark interest."
             label="Event Highlights"
             validateStatus={error ? "error" : ""}
             help={error?.message}
@@ -91,6 +95,7 @@ const EventDetailsSection: React.FC<EventDetailsSectionProps> = ({
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Form.Item
+            required
             label="Event Location"
             validateStatus={error ? "error" : ""}
             help={error?.message}
@@ -105,6 +110,7 @@ const EventDetailsSection: React.FC<EventDetailsSectionProps> = ({
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Form.Item
+            required
             label="Distance from Manila"
             validateStatus={error ? "error" : ""}
             help={error?.message}

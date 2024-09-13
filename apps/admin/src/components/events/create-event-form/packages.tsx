@@ -30,6 +30,7 @@ const PackageForm: React.FC<PackageFormProps> = ({ control, index }) => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Form.Item
+            required
             label="Package Title"
             validateStatus={error ? "error" : ""}
             help={error?.message}
@@ -44,6 +45,7 @@ const PackageForm: React.FC<PackageFormProps> = ({ control, index }) => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Form.Item
+            required
             label="Package Description"
             validateStatus={error ? "error" : ""}
             help={error?.message}
@@ -58,6 +60,7 @@ const PackageForm: React.FC<PackageFormProps> = ({ control, index }) => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Form.Item
+            required
             label="Package Duration"
             validateStatus={error ? "error" : ""}
             help={error?.message}
@@ -72,6 +75,7 @@ const PackageForm: React.FC<PackageFormProps> = ({ control, index }) => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Form.Item
+            required
             label="Package Price"
             validateStatus={error ? "error" : ""}
             help={error?.message}
@@ -102,6 +106,7 @@ const PackageForm: React.FC<PackageFormProps> = ({ control, index }) => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Form.Item
+            required
             label="Package Activities"
             validateStatus={error ? "error" : ""}
             help={error?.message}
@@ -126,6 +131,7 @@ const PackageForm: React.FC<PackageFormProps> = ({ control, index }) => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Form.Item
+            required
             label="Package Inclusions"
             validateStatus={error ? "error" : ""}
             help={error?.message}
@@ -140,6 +146,7 @@ const PackageForm: React.FC<PackageFormProps> = ({ control, index }) => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Form.Item
+            required
             label="Package Itinerary"
             validateStatus={error ? "error" : ""}
             help={error?.message}
@@ -154,6 +161,7 @@ const PackageForm: React.FC<PackageFormProps> = ({ control, index }) => {
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Form.Item
+            required
             label="Package Exclusions"
             validateStatus={error ? "error" : ""}
             help={error?.message}

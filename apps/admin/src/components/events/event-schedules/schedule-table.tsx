@@ -54,6 +54,18 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({
       sorter: (a: Schedule, b: Schedule) => a.bookings - b.bookings,
     },
     {
+      title: "Paid",
+      dataIndex: "paid",
+      key: "paid",
+      render: (revenue: number) => `Php ${revenue.toLocaleString()}`,
+    },
+    {
+      title: "To collect",
+      dataIndex: "toCollect",
+      key: "toCollect",
+      render: (revenue: number) => `Php ${revenue.toLocaleString()}`,
+    },
+    {
       title: "Status",
       dataIndex: "status",
       key: "status",
@@ -85,7 +97,7 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({
       title: "Revenue",
       dataIndex: "revenue",
       key: "revenue",
-      render: (revenue: number) => `₱${revenue.toLocaleString()}`,
+      render: (revenue: number) => `Php ${revenue.toLocaleString()}`,
       sorter: (a: Schedule, b: Schedule) => a.revenue - b.revenue,
     },
     {

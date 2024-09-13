@@ -34,6 +34,7 @@ const PaymentAndDiscountsSection: React.FC<PaymentAndDiscountsSectionProps> = ({
         control={control}
         render={({ field, fieldState: { error } }) => (
           <Form.Item
+            required
             label="Required Down Payment"
             validateStatus={error ? "error" : ""}
             help={error?.message}
@@ -56,12 +57,16 @@ const PaymentAndDiscountsSection: React.FC<PaymentAndDiscountsSectionProps> = ({
       <h3 className="text-lg font-semibold mb-4">Discounts</h3>
 
       {fields.map((field, index) => (
-        <div key={field.id} className="mb-4 p-4 border border-gray-200 rounded">
+        <div
+          key={field.id}
+          className="mb-4 p-4 border border-gray-200 rounded-md"
+        >
           <Controller
             name={`discounts.${index}.name`}
             control={control}
             render={({ field, fieldState: { error } }) => (
               <Form.Item
+                required
                 label="Discount Name"
                 validateStatus={error ? "error" : ""}
                 help={error?.message}
@@ -76,6 +81,7 @@ const PaymentAndDiscountsSection: React.FC<PaymentAndDiscountsSectionProps> = ({
             control={control}
             render={({ field, fieldState: { error } }) => (
               <Form.Item
+                required
                 label="Discount Type"
                 validateStatus={error ? "error" : ""}
                 help={error?.message}
@@ -93,6 +99,7 @@ const PaymentAndDiscountsSection: React.FC<PaymentAndDiscountsSectionProps> = ({
             control={control}
             render={({ field, fieldState: { error } }) => (
               <Form.Item
+                required
                 label="Discount Value"
                 validateStatus={error ? "error" : ""}
                 help={error?.message}

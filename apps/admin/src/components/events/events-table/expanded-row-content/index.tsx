@@ -21,7 +21,7 @@ const ExpandedRowContent: React.FC<{ record: EventData }> = ({ record }) => {
     { icon: <UserOutlined />, value: 5202, label: "Travelers" },
     { icon: <CommentOutlined />, value: 2123, label: "Reviews" },
     { icon: <CalendarOutlined />, value: 213, label: "Schedules" },
-    { icon: <DollarOutlined />, value: "₱446,000", label: "Avg. Cost" },
+    { icon: <DollarOutlined />, value: "₱446,000", label: "Revenue" },
   ];
 
   const scheduleBreakdown = {
