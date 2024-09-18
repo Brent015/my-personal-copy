@@ -8,7 +8,7 @@ export interface Schedule {
   bookings: number;
   maxCapacity: number;
   status: "Upcoming" | "Ongoing" | "Completed" | "Cancelled";
-  revenue: number;
+  totalEarnings: number;
   paid: number;
   toCollect: number;
   coordinatorId?: string;
@@ -85,7 +85,7 @@ export const sampleSchedules: Schedule[] = [
     bookings: 18,
     maxCapacity: 25,
     status: "Upcoming",
-    revenue: 45000,
+    totalEarnings: 45000,
     paid: 36000,
     toCollect: 9000,
     coordinatorId: "1",
@@ -99,7 +99,7 @@ export const sampleSchedules: Schedule[] = [
     bookings: 30,
     maxCapacity: 30,
     status: "Ongoing",
-    revenue: 75000,
+    totalEarnings: 75000,
     paid: 75000,
     toCollect: 0,
     coordinatorId: "2",
@@ -113,7 +113,7 @@ export const sampleSchedules: Schedule[] = [
     bookings: 22,
     maxCapacity: 25,
     status: "Completed",
-    revenue: 55000,
+    totalEarnings: 55000,
     paid: 55000,
     toCollect: 0,
     coordinatorId: "3",
@@ -127,7 +127,7 @@ export const sampleSchedules: Schedule[] = [
     bookings: 12,
     maxCapacity: 20,
     status: "Upcoming",
-    revenue: 30000,
+    totalEarnings: 30000,
     paid: 18000,
     toCollect: 12000,
     coordinatorId: "1",
@@ -141,7 +141,7 @@ export const sampleSchedules: Schedule[] = [
     bookings: 15,
     maxCapacity: 30,
     status: "Cancelled",
-    revenue: 0,
+    totalEarnings: 0,
     paid: 0,
     toCollect: 0,
   },

@@ -15,14 +15,37 @@ import styles from "./styles.module.css";
 const { Header, Sider, Content } = Layout;
 
 const menuItems = [
-  { key: "/dashboard", icon: <DashboardOutlined />, label: "Dashboard" },
+  {
+    key: "/dashboard",
+    icon: <DashboardOutlined />,
+    label: <Link to="/dashboard">Dashboard</Link>,
+  },
   {
     key: "/dashboard/events",
     icon: <CalendarOutlined />,
-    label: "Events",
+    label: (
+      <Link
+        to="/dashboard/events"
+        search={{
+          activeFilter: ["true"],
+          sortField: "earnings",
+          sortOrder: "descend",
+        }}
+      >
+        Events
+      </Link>
+    ),
   },
-  { key: "/dashboard/wallet", icon: <WalletOutlined />, label: "Wallet" },
-  { key: "/dashboard/settings", icon: <SettingOutlined />, label: "Settings" },
+  {
+    key: "/dashboard/wallet",
+    icon: <WalletOutlined />,
+    label: <Link to="/dashboard/wallet">Wallet</Link>,
+  },
+  {
+    key: "/dashboard/settings",
+    icon: <SettingOutlined />,
+    label: <Link to="/dashboard/settings">Settings</Link>,
+  },
 ];
 
 const DashboardLayout = () => {
@@ -46,10 +69,6 @@ const DashboardLayout = () => {
       },
     },
   };
-
-  console.log(pathname, [
-    menuItems.find((item) => pathname.indexOf(item.key) > -1)?.key ?? "",
-  ]);
 
   return (
     <ConfigProvider theme={customTheme}>
@@ -75,7 +94,7 @@ const DashboardLayout = () => {
             items={menuItems.map((item) => ({
               key: item.key,
               icon: item.icon,
-              label: <Link to={item.key}>{item.label}</Link>,
+              label: item.label,
             }))}
           />
         </Sider>

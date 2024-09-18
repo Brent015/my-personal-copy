@@ -15,13 +15,14 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as DashboardImport } from './routes/dashboard'
 import { Route as DashboardIndexImport } from './routes/dashboard.index'
+import { Route as DashboardWalletImport } from './routes/dashboard.wallet'
+import { Route as DashboardSettingsImport } from './routes/dashboard.settings'
 import { Route as DashboardEventsImport } from './routes/dashboard.events'
 import { Route as DashboardEventsIndexImport } from './routes/dashboard.events.index'
 import { Route as DashboardEventsSchedulesImport } from './routes/dashboard.events.schedules'
 import { Route as DashboardEventsEventIdIndexImport } from './routes/dashboard/events/$eventId/index'
 import { Route as DashboardEventsEventIdSchedulesImport } from './routes/dashboard/events/$eventId/schedules'
 import { Route as DashboardEventsEventIdEditImport } from './routes/dashboard/events/$eventId/edit'
-import { Route as DashboardEventsEventIdAddScheduleImport } from './routes/dashboard/events/$eventId/add-schedule'
 
 // Create Virtual Routes
 
@@ -51,6 +52,16 @@ const DashboardCreateLazyRoute = DashboardCreateLazyImport.update({
 } as any).lazy(() =>
   import('./routes/dashboard.create.lazy').then((d) => d.Route),
 )
+
+const DashboardWalletRoute = DashboardWalletImport.update({
+  path: '/wallet',
+  getParentRoute: () => DashboardRoute,
+} as any)
+
+const DashboardSettingsRoute = DashboardSettingsImport.update({
+  path: '/settings',
+  getParentRoute: () => DashboardRoute,
+} as any)
 
 const DashboardEventsRoute = DashboardEventsImport.update({
   path: '/events',
@@ -86,12 +97,6 @@ const DashboardEventsEventIdEditRoute = DashboardEventsEventIdEditImport.update(
   } as any,
 )
 
-const DashboardEventsEventIdAddScheduleRoute =
-  DashboardEventsEventIdAddScheduleImport.update({
-    path: '/$eventId/add-schedule',
-    getParentRoute: () => DashboardEventsRoute,
-  } as any)
-
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -115,6 +120,20 @@ declare module '@tanstack/react-router' {
       path: '/events'
       fullPath: '/dashboard/events'
       preLoaderRoute: typeof DashboardEventsImport
+      parentRoute: typeof DashboardImport
+    }
+    '/dashboard/settings': {
+      id: '/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof DashboardSettingsImport
+      parentRoute: typeof DashboardImport
+    }
+    '/dashboard/wallet': {
+      id: '/dashboard/wallet'
+      path: '/wallet'
+      fullPath: '/dashboard/wallet'
+      preLoaderRoute: typeof DashboardWalletImport
       parentRoute: typeof DashboardImport
     }
     '/dashboard/create': {
@@ -143,13 +162,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/dashboard/events/'
       preLoaderRoute: typeof DashboardEventsIndexImport
-      parentRoute: typeof DashboardEventsImport
-    }
-    '/dashboard/events/$eventId/add-schedule': {
-      id: '/dashboard/events/$eventId/add-schedule'
-      path: '/$eventId/add-schedule'
-      fullPath: '/dashboard/events/$eventId/add-schedule'
-      preLoaderRoute: typeof DashboardEventsEventIdAddScheduleImport
       parentRoute: typeof DashboardEventsImport
     }
     '/dashboard/events/$eventId/edit': {
@@ -181,7 +193,6 @@ declare module '@tanstack/react-router' {
 interface DashboardEventsRouteChildren {
   DashboardEventsSchedulesRoute: typeof DashboardEventsSchedulesRoute
   DashboardEventsIndexRoute: typeof DashboardEventsIndexRoute
-  DashboardEventsEventIdAddScheduleRoute: typeof DashboardEventsEventIdAddScheduleRoute
   DashboardEventsEventIdEditRoute: typeof DashboardEventsEventIdEditRoute
   DashboardEventsEventIdSchedulesRoute: typeof DashboardEventsEventIdSchedulesRoute
   DashboardEventsEventIdIndexRoute: typeof DashboardEventsEventIdIndexRoute
@@ -190,8 +201,6 @@ interface DashboardEventsRouteChildren {
 const DashboardEventsRouteChildren: DashboardEventsRouteChildren = {
   DashboardEventsSchedulesRoute: DashboardEventsSchedulesRoute,
   DashboardEventsIndexRoute: DashboardEventsIndexRoute,
-  DashboardEventsEventIdAddScheduleRoute:
-    DashboardEventsEventIdAddScheduleRoute,
   DashboardEventsEventIdEditRoute: DashboardEventsEventIdEditRoute,
   DashboardEventsEventIdSchedulesRoute: DashboardEventsEventIdSchedulesRoute,
   DashboardEventsEventIdIndexRoute: DashboardEventsEventIdIndexRoute,
@@ -203,12 +212,16 @@ const DashboardEventsRouteWithChildren = DashboardEventsRoute._addFileChildren(
 
 interface DashboardRouteChildren {
   DashboardEventsRoute: typeof DashboardEventsRouteWithChildren
+  DashboardSettingsRoute: typeof DashboardSettingsRoute
+  DashboardWalletRoute: typeof DashboardWalletRoute
   DashboardCreateLazyRoute: typeof DashboardCreateLazyRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardEventsRoute: DashboardEventsRouteWithChildren,
+  DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardWalletRoute: DashboardWalletRoute,
   DashboardCreateLazyRoute: DashboardCreateLazyRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
@@ -221,11 +234,12 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/dashboard/events': typeof DashboardEventsRouteWithChildren
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/wallet': typeof DashboardWalletRoute
   '/dashboard/create': typeof DashboardCreateLazyRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/events/schedules': typeof DashboardEventsSchedulesRoute
   '/dashboard/events/': typeof DashboardEventsIndexRoute
-  '/dashboard/events/$eventId/add-schedule': typeof DashboardEventsEventIdAddScheduleRoute
   '/dashboard/events/$eventId/edit': typeof DashboardEventsEventIdEditRoute
   '/dashboard/events/$eventId/schedules': typeof DashboardEventsEventIdSchedulesRoute
   '/dashboard/events/$eventId': typeof DashboardEventsEventIdIndexRoute
@@ -233,11 +247,12 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/wallet': typeof DashboardWalletRoute
   '/dashboard/create': typeof DashboardCreateLazyRoute
   '/dashboard': typeof DashboardIndexRoute
   '/dashboard/events/schedules': typeof DashboardEventsSchedulesRoute
   '/dashboard/events': typeof DashboardEventsIndexRoute
-  '/dashboard/events/$eventId/add-schedule': typeof DashboardEventsEventIdAddScheduleRoute
   '/dashboard/events/$eventId/edit': typeof DashboardEventsEventIdEditRoute
   '/dashboard/events/$eventId/schedules': typeof DashboardEventsEventIdSchedulesRoute
   '/dashboard/events/$eventId': typeof DashboardEventsEventIdIndexRoute
@@ -248,11 +263,12 @@ export interface FileRoutesById {
   '/': typeof IndexLazyRoute
   '/dashboard': typeof DashboardRouteWithChildren
   '/dashboard/events': typeof DashboardEventsRouteWithChildren
+  '/dashboard/settings': typeof DashboardSettingsRoute
+  '/dashboard/wallet': typeof DashboardWalletRoute
   '/dashboard/create': typeof DashboardCreateLazyRoute
   '/dashboard/': typeof DashboardIndexRoute
   '/dashboard/events/schedules': typeof DashboardEventsSchedulesRoute
   '/dashboard/events/': typeof DashboardEventsIndexRoute
-  '/dashboard/events/$eventId/add-schedule': typeof DashboardEventsEventIdAddScheduleRoute
   '/dashboard/events/$eventId/edit': typeof DashboardEventsEventIdEditRoute
   '/dashboard/events/$eventId/schedules': typeof DashboardEventsEventIdSchedulesRoute
   '/dashboard/events/$eventId/': typeof DashboardEventsEventIdIndexRoute
@@ -264,22 +280,24 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/dashboard/events'
+    | '/dashboard/settings'
+    | '/dashboard/wallet'
     | '/dashboard/create'
     | '/dashboard/'
     | '/dashboard/events/schedules'
     | '/dashboard/events/'
-    | '/dashboard/events/$eventId/add-schedule'
     | '/dashboard/events/$eventId/edit'
     | '/dashboard/events/$eventId/schedules'
     | '/dashboard/events/$eventId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/dashboard/settings'
+    | '/dashboard/wallet'
     | '/dashboard/create'
     | '/dashboard'
     | '/dashboard/events/schedules'
     | '/dashboard/events'
-    | '/dashboard/events/$eventId/add-schedule'
     | '/dashboard/events/$eventId/edit'
     | '/dashboard/events/$eventId/schedules'
     | '/dashboard/events/$eventId'
@@ -288,11 +306,12 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/dashboard/events'
+    | '/dashboard/settings'
+    | '/dashboard/wallet'
     | '/dashboard/create'
     | '/dashboard/'
     | '/dashboard/events/schedules'
     | '/dashboard/events/'
-    | '/dashboard/events/$eventId/add-schedule'
     | '/dashboard/events/$eventId/edit'
     | '/dashboard/events/$eventId/schedules'
     | '/dashboard/events/$eventId/'
@@ -332,6 +351,8 @@ export const routeTree = rootRoute
       "filePath": "dashboard.tsx",
       "children": [
         "/dashboard/events",
+        "/dashboard/settings",
+        "/dashboard/wallet",
         "/dashboard/create",
         "/dashboard/"
       ]
@@ -342,11 +363,18 @@ export const routeTree = rootRoute
       "children": [
         "/dashboard/events/schedules",
         "/dashboard/events/",
-        "/dashboard/events/$eventId/add-schedule",
         "/dashboard/events/$eventId/edit",
         "/dashboard/events/$eventId/schedules",
         "/dashboard/events/$eventId/"
       ]
+    },
+    "/dashboard/settings": {
+      "filePath": "dashboard.settings.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/wallet": {
+      "filePath": "dashboard.wallet.tsx",
+      "parent": "/dashboard"
     },
     "/dashboard/create": {
       "filePath": "dashboard.create.lazy.tsx",
@@ -362,10 +390,6 @@ export const routeTree = rootRoute
     },
     "/dashboard/events/": {
       "filePath": "dashboard.events.index.tsx",
-      "parent": "/dashboard/events"
-    },
-    "/dashboard/events/$eventId/add-schedule": {
-      "filePath": "dashboard/events/$eventId/add-schedule.tsx",
       "parent": "/dashboard/events"
     },
     "/dashboard/events/$eventId/edit": {

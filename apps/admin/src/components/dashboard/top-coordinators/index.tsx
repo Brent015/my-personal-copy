@@ -58,14 +58,14 @@ const TopCoordinators: React.FC = () => {
             <div className="flex">
               <Avatar
                 src={coordinator.image}
-                size={80}
+                size={100}
                 className="mr-4 flex-shrink-0"
                 style={{ objectFit: "cover" }}
               />
               <div className="flex-grow">
                 <div className="flex justify-between items-start mb-2">
                   <div>
-                    <Text strong className="text-xl block mb-0">
+                    <Text strong className="text-lg block mb-0">
                       {coordinator.name}
                     </Text>
                     <Text type="secondary" className="text-sm">
@@ -74,6 +74,7 @@ const TopCoordinators: React.FC = () => {
                   </div>
                   <div className="flex items-center">
                     <Rate
+                      allowHalf
                       disabled
                       defaultValue={coordinator.rating}
                       character={<StarFilled />}
@@ -84,7 +85,9 @@ const TopCoordinators: React.FC = () => {
                     </Text>
                   </div>
                 </div>
-                <Paragraph className="mb-2 text-base">{coordinator.bio}</Paragraph>
+                <Paragraph className="mb-2 text-sm">
+                  {coordinator.bio}
+                </Paragraph>
                 <a
                   href="#"
                   className="text-blue-500 hover:underline flex items-center text-sm"

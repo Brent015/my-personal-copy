@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import {
   Button,
+  Card,
   Dropdown,
   Image,
   Space,
@@ -21,32 +22,31 @@ import React from "react";
 
 import ExpandedRowContent from "./expanded-row-content";
 import EventTableFilters from "./filters";
-import { Link } from "@tanstack/react-router";
+import { getRouteApi, Link, useNavigate } from "@tanstack/react-router";
+import { Event, EventTableFilterState, FilterStatus } from "../types";
 
-const data = [
+const data: Event[] = [
   {
     key: "1",
     image: "https://loremflickr.com/320/240/philippines,beach",
     event: "Jimbaran Beach",
     location: "Zimbabwe",
-    earnings: "9,970 php",
-    totalBookings: "250",
-    activeSchedules: "20",
+    earnings: 9970,
+    totalBookings: 250,
+    activeSchedules: 20,
     isActive: true,
   },
   {
     key: "2",
     image: "https://loremflickr.com/320/240/philippines,beach",
     event: "Jimbaran beach",
-    location: "30 guests",
-    earnings: "9,970 php",
-    totalBookings: "25,874 php",
-    activeSchedules: "20",
+    location: "Zimbabwe",
+    earnings: 9970,
+    totalBookings: 250,
+    activeSchedules: 20,
     isActive: false,
   },
 ];
-
-type EventData = (typeof data)[number];
 
 const { Text } = Typography;
 
@@ -77,13 +77,16 @@ const VisibilityToggle: React.FC<VisibilityToggleProps> = ({
 };
 
 const EventsTable: React.FC = () => {
+  const search = getRouteApi("/dashboard/events/").useSearch();
+  const navigate = useNavigate({ from: "/dashboard/events/" });
+  console.log("search", search);
   // const { filteredData, handleFilterChange } = useTableFilters<EventData>(data);
 
   const handleVisibilityToggle = async (eventId: string, visible: boolean) => {
     console.log(eventId, visible);
   };
 
-  const columns: ColumnsType<EventData> = [
+  const columns: ColumnsType<Event> = [
     {
       dataIndex: "image",
       key: "thumbnail",
@@ -116,19 +119,29 @@ const EventsTable: React.FC = () => {
       title: "Earnings",
       dataIndex: "earnings",
       key: "earnings",
+      defaultSortOrder:
+        search.sortField === "earnings" ? search.sortOrder : null,
+      sorter: (a, b) => a.earnings - b.earnings,
     },
     {
       title: "Total Bookings",
       dataIndex: "totalBookings",
       key: "totalBookings",
+      defaultSortOrder:
+        search.sortField === "totalBookings" ? search.sortOrder : null,
+      sorter: (a, b) => a.totalBookings - b.totalBookings,
     },
     {
       title: "Active Schedules",
       dataIndex: "activeSchedules",
       key: "activeSchedules",
+      defaultSortOrder:
+        search.sortField === "activeSchedules" ? search.sortOrder : null,
+      sorter: (a, b) => a.activeSchedules - b.activeSchedules,
     },
     {
       title: "Visibility",
+      dataIndex: "isActive",
       key: "visibility",
       render: (_, record) => (
         <VisibilityToggle
@@ -137,6 +150,11 @@ const EventsTable: React.FC = () => {
           eventName={record.event}
         />
       ),
+      filters: [
+        { text: "Visible", value: FilterStatus.ACTIVE },
+        { text: "Hidden", value: FilterStatus.INACTIVE },
+      ],
+      filteredValue: search.activeFilter,
     },
 
     {
@@ -194,27 +212,43 @@ const EventsTable: React.FC = () => {
   ];
 
   return (
-    <Table<EventData>
-      title={() => <EventTableFilters />}
-      expandable={{
-        expandedRowRender: (record) => <ExpandedRowContent record={record} />,
-      }}
-      size="small"
-      columns={columns}
-      dataSource={data}
-      pagination={false}
-      style={{ overflow: "hidden" }}
-      aria-label="Events table"
-      summary={() => (
-        <Table.Summary.Row>
-          <Table.Summary.Cell index={0} colSpan={12}>
-            <div role="status" aria-live="polite">
-              Total {data.length} events listed
-            </div>
-          </Table.Summary.Cell>
-        </Table.Summary.Row>
-      )}
-    />
+    <Card>
+      <Table<Event>
+        title={() => <EventTableFilters />}
+        expandable={{
+          expandedRowRender: (record) => <ExpandedRowContent record={record} />,
+        }}
+        size="small"
+        columns={columns}
+        dataSource={data}
+        pagination={false}
+        style={{ overflow: "hidden" }}
+        aria-label="Events table"
+        onChange={(_, filters, sorter) => {
+          const sorterResult = Array.isArray(sorter) ? sorter[0] : sorter;
+          navigate({
+            search: (prev) => ({
+              ...prev,
+              sortField:
+                sorterResult.field as EventTableFilterState["sortField"],
+              sortOrder:
+                sorterResult.order as EventTableFilterState["sortOrder"],
+              activeFilter:
+                filters.status as EventTableFilterState["activeFilter"],
+            }),
+          });
+        }}
+        summary={() => (
+          <Table.Summary.Row>
+            <Table.Summary.Cell index={0} colSpan={12}>
+              <div role="status" aria-live="polite">
+                Total {data.length} events listed
+              </div>
+            </Table.Summary.Cell>
+          </Table.Summary.Row>
+        )}
+      />
+    </Card>
   );
 };
 

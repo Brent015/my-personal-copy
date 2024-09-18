@@ -26,22 +26,6 @@ const upcomingEvents = [
     maxParticipants: 20,
     image: "https://loremflickr.com/320/240/philippines,beach",
   },
-  {
-    id: 4,
-    title: "White Beach, Boracay",
-    date: "April 11 - 15, 2023",
-    participants: 13,
-    maxParticipants: 20,
-    image: "https://loremflickr.com/320/240/philippines,beach",
-  },
-  {
-    id: 5,
-    title: "White Beach, Boracay",
-    date: "April 11 - 15, 2023",
-    participants: 13,
-    maxParticipants: 20,
-    image: "https://loremflickr.com/320/240/philippines,beach",
-  },
 ];
 
 const UpcomingEvents = () => {
@@ -75,18 +59,18 @@ const UpcomingEvents = () => {
                 />
               }
               title={
-                <div className="flex justify-between">
+                <div className="flex font-semibold justify-between">
                   {item.title} <Tag color="blue">Ongoing</Tag>
                 </div>
               }
               description={
                 <div>
                   <div>{item.date}</div>
+                  <div>
+                    {`${item.participants}/${item.maxParticipants}  participants`}
+                  </div>
                   <Progress
                     percent={(item.participants / item.maxParticipants) * 100}
-                    format={() =>
-                      `${item.participants}/${item.maxParticipants}  participants`
-                    }
                     size="small"
                   />
                 </div>

@@ -1,8 +1,9 @@
 import { EventsTable } from "@/components/events";
-import { eventTableFilterSchema } from "@/components/events/types";
+import { eventsTableFilterSchema } from "@/components/events/types";
 import { createFileRoute } from "@tanstack/react-router";
+import { zodSearchValidator } from "@tanstack/router-zod-adapter";
 
 export const Route = createFileRoute("/dashboard/events/")({
   component: EventsTable,
-  validateSearch: eventTableFilterSchema,
+  validateSearch: zodSearchValidator(eventsTableFilterSchema),
 });

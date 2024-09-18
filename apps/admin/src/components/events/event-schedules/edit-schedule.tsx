@@ -1,9 +1,8 @@
+import { DatePicker, Form, Input, InputNumber, Modal } from "antd";
 import React from "react";
-import { Modal, Form, Input, DatePicker, InputNumber, Select } from "antd";
 import { Schedule } from "./types";
 
 const { RangePicker } = DatePicker;
-const { Option } = Select;
 
 interface EditScheduleModalProps {
   schedule: Schedule | null;
@@ -43,7 +42,7 @@ export const EditScheduleModal: React.FC<EditScheduleModalProps> = ({
   return (
     <Modal
       title="Edit Schedule"
-      visible={visible}
+      open={visible}
       onOk={handleOk}
       onCancel={onCancel}
     >
@@ -68,14 +67,6 @@ export const EditScheduleModal: React.FC<EditScheduleModalProps> = ({
           rules={[{ required: true }]}
         >
           <InputNumber min={1} className="w-full" />
-        </Form.Item>
-        <Form.Item name="status" label="Status" rules={[{ required: true }]}>
-          <Select>
-            <Option value="Upcoming">Upcoming</Option>
-            <Option value="Ongoing">Ongoing</Option>
-            <Option value="Completed">Completed</Option>
-            <Option value="Cancelled">Cancelled</Option>
-          </Select>
         </Form.Item>
       </Form>
     </Modal>

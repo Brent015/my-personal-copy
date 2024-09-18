@@ -7,6 +7,7 @@ import {
 } from "@ant-design/icons";
 import {
   Button,
+  Card,
   DatePicker,
   Dropdown,
   Image,
@@ -16,27 +17,30 @@ import {
   Tag,
 } from "antd";
 import type { ColumnsType } from "antd/es/table";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import React, { useState } from "react";
 
+import { getRouteApi, useNavigate } from "@tanstack/react-router";
+import { AllScheduleData, SchedulesTableFilterState } from "../types";
 import ScheduleFilters from "./filters";
-import { ScheduleData } from "../types";
 
 const { RangePicker } = DatePicker;
 
-
-const initialData: ScheduleData[] = [
+const initialData: AllScheduleData[] = [
   {
     key: "1",
     event: "Jimbaran beach",
     eventImage: "https://loremflickr.com/320/240/philippines,beach",
-    schedule: "Oct 09 - Oct 12",
-    booked: "6",
-    maxGuests: 30,
-    paid: "9,970 php",
-    toCollect: "25,874 php",
-    totalEarnings: "89,970 php",
-    status: "on-going",
+    startDate: dayjs().add(1, "week"),
+    endDate: dayjs().add(1, "week").add(5, "day"),
+    bookings: 6,
+    maxCapacity: 30,
+    paid: 9970,
+    toCollect: 25874,
+    totalEarnings: 89970,
+    status: "Ongoing",
+    id: "",
+    eventName: "",
   },
   // Add more sample data here...
 ];
@@ -44,7 +48,7 @@ const initialData: ScheduleData[] = [
 const getStatusTag = (status: string) => {
   const colorMap: { [key: string]: string } = {
     upcoming: "blue",
-    "on-going": "green",
+    ongoing: "green",
     completed: "orange",
     cancelled: "red",
   };
@@ -80,22 +84,24 @@ const actionItems: MenuProps["items"] = [
 ];
 
 const SchedulesTable: React.FC = () => {
-  const [data, setData] = useState<ScheduleData[]>(initialData);
+  const search = getRouteApi("/dashboard/events/schedules").useSearch();
+  const navigate = useNavigate({ from: "/dashboard/events/schedules" });
+  const [data, setData] = useState<AllScheduleData[]>(initialData);
   const [editingField, setEditingField] = useState<{
     key: string;
-    field: keyof ScheduleData;
+    field: keyof AllScheduleData;
   } | null>(null);
 
   const handleDoubleClick = (
-    record: ScheduleData,
-    field: keyof ScheduleData
+    record: AllScheduleData,
+    field: keyof AllScheduleData
   ) => {
     setEditingField({ key: record.key, field });
   };
 
   const handleSave = (
     key: string,
-    field: keyof ScheduleData,
+    field: keyof AllScheduleData,
     value: string | number
   ) => {
     const newData = data.map((item) => {
@@ -108,7 +114,7 @@ const SchedulesTable: React.FC = () => {
     setEditingField(null);
   };
 
-  const columns: ColumnsType<ScheduleData> = [
+  const columns: ColumnsType<AllScheduleData> = [
     {
       title: "Thumbnail",
       dataIndex: "eventImage",
@@ -131,51 +137,49 @@ const SchedulesTable: React.FC = () => {
     },
     {
       title: "Schedule",
-      dataIndex: "schedule",
-      key: "schedule",
-      render: (text, record) => {
+      dataIndex: "startDate",
+      key: "startDate",
+      defaultSortOrder: search.sortOrder,
+      render: (date: Dayjs, record) => {
         const isEditing =
-          editingField?.key === record.key && editingField.field === "schedule";
+          editingField?.key === record.key &&
+          editingField.field === "startDate";
         return isEditing ? (
           <RangePicker
             format="MMM DD"
-            defaultValue={[
-              dayjs(text.split(" - ")[0]),
-              dayjs(text.split(" - ")[1]),
-            ]}
+            defaultValue={[dayjs(record.startDate), dayjs(record.endDate)]}
             onChange={(dates, dateStrings) => {
               if (dates) {
-                handleSave(
-                  record.key,
-                  "schedule",
-                  `${dateStrings[0]} - ${dateStrings[1]}`
-                );
+                handleSave(record.key, "startDate", `${dateStrings[0]}`);
+                handleSave(record.key, "endDate", `${dateStrings[1]}`);
               }
             }}
             onBlur={() => setEditingField(null)}
             autoFocus
           />
         ) : (
-          <div onDoubleClick={() => handleDoubleClick(record, "schedule")}>
-            {text}
+          <div onDoubleClick={() => handleDoubleClick(record, "startDate")}>
+            {date.format("MMM D")} - {record.endDate.format("MMM D YYYY")}
           </div>
         );
       },
+      sorter: (a, b) => a.endDate.unix() - b.endDate.unix(),
     },
     {
-      title: "Booked",
-      dataIndex: "booked",
-      key: "booked",
-      render: (text, record) => `${text} / ${record.maxGuests} guests`,
+      title: "Guests",
+      dataIndex: "bookings",
+      key: "bookings",
+      render: (text, record) => `${text} / ${record.maxCapacity} guests`,
+      sorter: (a, b) => a.bookings - b.bookings,
     },
     {
       title: "Max Guests",
-      dataIndex: "maxGuests",
-      key: "maxGuests",
+      dataIndex: "maxCapacity",
+      key: "maxCapacity",
       render: (text, record) => {
         const isEditing =
           editingField?.key === record.key &&
-          editingField.field === "maxGuests";
+          editingField.field === "maxCapacity";
         return isEditing ? (
           <InputNumber
             min={1}
@@ -183,17 +187,17 @@ const SchedulesTable: React.FC = () => {
             onPressEnter={(e) =>
               handleSave(
                 record.key,
-                "maxGuests",
+                "maxCapacity",
                 Number((e.target as HTMLInputElement).value)
               )
             }
             onBlur={(e) =>
-              handleSave(record.key, "maxGuests", Number(e.target.value))
+              handleSave(record.key, "maxCapacity", Number(e.target.value))
             }
             autoFocus
           />
         ) : (
-          <div onDoubleClick={() => handleDoubleClick(record, "maxGuests")}>
+          <div onDoubleClick={() => handleDoubleClick(record, "maxCapacity")}>
             {text}
           </div>
         );
@@ -203,22 +207,32 @@ const SchedulesTable: React.FC = () => {
       title: "Paid",
       dataIndex: "paid",
       key: "paid",
+      sorter: (a, b) => a.paid - b.paid,
     },
     {
       title: "To collect",
       dataIndex: "toCollect",
       key: "toCollect",
+      sorter: (a, b) => a.toCollect - b.toCollect,
     },
     {
-      title: "Revenue",
+      title: "Earnings",
       dataIndex: "totalEarnings",
       key: "totalEarnings",
+      sorter: (a, b) => a.totalEarnings - b.totalEarnings,
     },
     {
       title: "Status",
       key: "status",
       dataIndex: "status",
       render: (status) => getStatusTag(status),
+      filters: [
+        { text: "Upcoming", value: "upcoming" },
+        { text: "Ongoing", value: "ongoing" },
+        { text: "Completed", value: "completed" },
+        { text: "Cancelled", value: "cancelled" },
+      ],
+      defaultFilteredValue: search.status,
     },
     {
       title: "Action",
@@ -236,24 +250,42 @@ const SchedulesTable: React.FC = () => {
   ];
 
   return (
-    <Table<ScheduleData>
-      title={() => <ScheduleFilters />}
-      size="small"
-      columns={columns}
-      dataSource={data}
-      pagination={false}
-      style={{ overflow: "hidden" }}
-      aria-label="Schedules table"
-      summary={() => (
-        <Table.Summary.Row>
-          <Table.Summary.Cell index={0} colSpan={11}>
-            <div role="status" aria-live="polite">
-              Total {data.length} schedules listed
-            </div>
-          </Table.Summary.Cell>
-        </Table.Summary.Row>
-      )}
-    />
+    <Card>
+      <Table<AllScheduleData>
+        sortDirections={["ascend", "descend", "ascend"]}
+        onChange={(_, filters, sorter) => {
+          // console.log(filters);
+          // // Ensure sorter is treated as an array
+          const sorterResult = Array.isArray(sorter) ? sorter[0] : sorter;
+          navigate({
+            search: (prev) => ({
+              ...prev,
+              sortField:
+                sorterResult.field as SchedulesTableFilterState["sortField"],
+              sortOrder:
+                sorterResult.order as SchedulesTableFilterState["sortOrder"],
+              status: filters.status as SchedulesTableFilterState["status"],
+            }),
+          });
+        }}
+        title={() => <ScheduleFilters />}
+        size="small"
+        columns={columns}
+        dataSource={data}
+        pagination={false}
+        style={{ overflow: "hidden" }}
+        aria-label="Schedules table"
+        summary={() => (
+          <Table.Summary.Row>
+            <Table.Summary.Cell index={0} colSpan={11}>
+              <div role="status" aria-live="polite">
+                Total {data.length} schedules listed
+              </div>
+            </Table.Summary.Cell>
+          </Table.Summary.Row>
+        )}
+      />
+    </Card>
   );
 };
 

@@ -57,13 +57,15 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({
       title: "Paid",
       dataIndex: "paid",
       key: "paid",
-      render: (revenue: number) => `Php ${revenue.toLocaleString()}`,
+      render: (paid: number) => `Php ${paid.toLocaleString()}`,
+      sorter: (a: Schedule, b: Schedule) => a.paid - b.paid,
     },
     {
       title: "To collect",
       dataIndex: "toCollect",
       key: "toCollect",
-      render: (revenue: number) => `Php ${revenue.toLocaleString()}`,
+      render: (toCollect: number) => `Php ${toCollect.toLocaleString()}`,
+      sorter: (a: Schedule, b: Schedule) => a.toCollect - b.toCollect,
     },
     {
       title: "Status",
@@ -94,11 +96,11 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({
       onFilter: (value, record) => record.status === value,
     },
     {
-      title: "Revenue",
-      dataIndex: "revenue",
-      key: "revenue",
+      title: "Total Earnings",
+      dataIndex: "totalEarnings",
+      key: "totalEarnings",
       render: (revenue: number) => `Php ${revenue.toLocaleString()}`,
-      sorter: (a: Schedule, b: Schedule) => a.revenue - b.revenue,
+      sorter: (a: Schedule, b: Schedule) => a.totalEarnings - b.totalEarnings,
     },
     {
       title: "Action",
@@ -136,7 +138,7 @@ export const ScheduleTable: React.FC<ScheduleTableProps> = ({
           }}
           trigger={["click"]}
         >
-          <Button icon={<EllipsisOutlined />} />
+          <Button type="text" icon={<EllipsisOutlined />} />
         </Dropdown>
       ),
     },

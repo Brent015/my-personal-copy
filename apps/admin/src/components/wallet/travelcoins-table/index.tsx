@@ -69,16 +69,14 @@ const TravelCoinsTransactionsTable: React.FC = () => {
         title={() => (
           <div className="flex items-center space-x-4 p-1">
             <Input
-              size="small"
               placeholder="Search by type"
               prefix={<SearchOutlined />}
               style={{ width: 200 }}
             />
-            <RangePicker size="small" />
-            <Button size="small">Clear Filters</Button>
+            <RangePicker />
+            <Button>Clear Filters</Button>
           </div>
         )}
-        size="small"
         columns={columns}
         dataSource={data}
       />

@@ -1,14 +1,19 @@
+import React from "react";
+import { Card, Typography } from "antd";
 import { formatCurrency, formatNumber } from "@/utils/format";
 import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  Legend,
-  Tooltip as RechartsTooltip,
-  ResponsiveContainer,
+  LineChart,
+  Line,
   XAxis,
   YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
 } from "recharts";
+import { motion } from "framer-motion";
+
+const { Title } = Typography;
 
 interface ChartData {
   month: string;
@@ -37,74 +42,128 @@ const chartData: ChartData[] = [
   },
 ];
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+const CustomTooltip: React.FC<{
+  active?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  payload?: any[];
+  label?: string;
+}> = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white p-4 border border-gray-200 shadow-md">
-        <p className="font-bold">{label}</p>
-        {payload.map((pld: any, index: number) => (
-          <p key={index} style={{ color: pld.color }}>
-            {pld.name}:{" "}
-            {pld.name === "Total Earnings (PHP)"
-              ? formatCurrency(pld.value)
-              : formatNumber(pld.value)}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-white p-4 rounded-lg shadow-lg border border-gray-200"
+      >
+        <p className="font-bold text-gray-700 mb-2">{label}</p>
+        {payload.map((pld, index) => (
+          <p key={index} className="text-sm">
+            <span style={{ color: pld.color }}>{pld.name}: </span>
+            <span className="font-semibold">
+              {pld.name === "Total Earnings (PHP)"
+                ? formatCurrency(pld.value)
+                : formatNumber(pld.value)}
+            </span>
           </p>
         ))}
-      </div>
+      </motion.div>
     );
   }
   return null;
 };
 
-const DashboardChart = () => {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const CustomizedDot: React.FC<any> = (props) => {
+  const { cx, cy, stroke } = props;
+
   return (
-    <div className="lg:col-span-2 bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Performance Metrics</h2>
-      <ResponsiveContainer width="100%" height={400}>
-        <AreaChart data={chartData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="month" />
+    <svg
+      x={cx - 10}
+      y={cy - 10}
+      width={20}
+      height={20}
+      fill="white"
+      viewBox="0 0 100 100"
+    >
+      <circle cx="50" cy="50" r="40" stroke={stroke} strokeWidth="8" />
+      <circle cx="50" cy="50" r="25" fill={stroke} />
+    </svg>
+  );
+};
+
+const DashboardChart: React.FC = () => {
+  return (
+    <Card className="lg:col-span-2 shadow-lg rounded-xl overflow-hidden">
+      <Title level={4} className="mb-6">
+        Performance Metrics
+      </Title>
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart
+          data={chartData}
+          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+        >
+          <defs>
+            <linearGradient id="colorTravelcoins" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="colorEarnings" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+            </linearGradient>
+            <linearGradient id="colorBookings" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#ffc658" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#ffc658" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+          <XAxis dataKey="month" stroke="#666" />
           <YAxis
             yAxisId="left"
+            stroke="#666"
             tickFormatter={(value) => formatNumber(value)}
           />
           <YAxis
             yAxisId="right"
             orientation="right"
+            stroke="#666"
             tickFormatter={(value) => formatCurrency(value)}
           />
-          <RechartsTooltip content={<CustomTooltip />} />
-          <Legend />
-          <Area
+          <Tooltip content={<CustomTooltip />} />
+          <Legend wrapperStyle={{ paddingTop: "20px" }} />
+          <Line
             yAxisId="left"
             type="monotone"
             dataKey="travelcoinsEarned"
-            stackId="1"
             stroke="#8884d8"
-            fill="#8884d8"
+            strokeWidth={3}
             name="Travelcoins Earned"
+            dot={<CustomizedDot />}
+            activeDot={{ r: 8 }}
           />
-          <Area
+          <Line
             yAxisId="right"
             type="monotone"
             dataKey="totalEarnings"
-            stackId="2"
             stroke="#82ca9d"
-            fill="#82ca9d"
+            strokeWidth={3}
             name="Total Earnings (PHP)"
+            dot={<CustomizedDot />}
+            activeDot={{ r: 8 }}
           />
-          <Area
+          <Line
             yAxisId="left"
             type="monotone"
             dataKey="bookings"
-            stackId="3"
             stroke="#ffc658"
-            fill="#ffc658"
+            strokeWidth={3}
             name="No. of Bookings"
+            dot={<CustomizedDot />}
+            activeDot={{ r: 8 }}
           />
-        </AreaChart>
+        </LineChart>
       </ResponsiveContainer>
-    </div>
+    </Card>
   );
 };
 

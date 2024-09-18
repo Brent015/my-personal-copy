@@ -3,13 +3,13 @@ import { Card, List, Typography, Rate, Image } from "antd";
 import {
   UserOutlined,
   DollarOutlined,
-  CheckCircleOutlined,
   StarFilled,
+  CheckCircleOutlined,
   RightOutlined,
 } from "@ant-design/icons";
 import { formatCurrency, formatNumber } from "@/utils/format";
 
-const { Text, Title, Paragraph } = Typography;
+const { Text, Title } = Typography;
 
 interface Event {
   id: string;
@@ -67,50 +67,53 @@ const TopEvents: React.FC = () => {
           <List.Item key={event.id} className="border-b last:border-b-0 py-4">
             <div className="flex gap-4">
               <Image
-                width={80}
-                height={80}
+                width={100}
+                height={100}
                 src={event.image}
                 alt={event.name}
-                className="mr-4 flex-shrink-0 rounded-md object-cover"
+                className="flex-shrink-0 rounded-md object-cover"
               />
               <div className="flex-grow">
-                <div className="flex justify-between items-start mb-2">
-                  <div>
-                    <Text strong className="text-xl block mb-0">
-                      {event.name}
+                <Title level={5} className="mb-1">
+                  {event.name}
+                </Title>
+                <div className="flex items-center mb-2">
+                  <Rate
+                    disabled
+                    defaultValue={event.rating}
+                    character={<StarFilled />}
+                    className="text-yellow-400 text-sm"
+                  />
+                  <Text className="ml-2 text-sm">
+                    {event.rating.toFixed(1)} ({event.reviewCount} reviews)
+                  </Text>
+                </div>
+                <div className="flex mb-2">
+                  <div className="flex-1 bg-blue-50 p-2 rounded-l-md">
+                    <Text className="text-blue-600 block text-xs">
+                      <UserOutlined className="mr-1" />
+                      Bookings
                     </Text>
-                    <div className="flex items-center mt-1">
-                      <Rate
-                        disabled
-                        defaultValue={event.rating}
-                        character={<StarFilled />}
-                        className="text-yellow-400 text-sm"
-                      />
-                      <Text className="ml-2 text-base">
-                        {event.rating.toFixed(1)}
-                      </Text>
-                      <Text className="ml-2 text-sm text-gray-500">
-                        ({event.reviewCount} reviews)
-                      </Text>
-                    </div>
+                    <Text strong>{formatNumber(event.bookings)}</Text>
+                  </div>
+                  <div className="flex-1 bg-green-50 p-2 rounded-r-md">
+                    <Text className="text-green-600 block text-xs">
+                      <DollarOutlined className="mr-1" />
+                      Earnings
+                    </Text>
+                    <Text strong>{formatCurrency(event.earnings)}</Text>
                   </div>
                 </div>
-                <Paragraph className="mb-2 text-base">
-                  <div className="grid grid-cols-1 gap-y-1 gap-x-4">
-                    <div className="flex items-center space-x-2">
-                      <UserOutlined />
-                      <Text>{formatNumber(event.bookings)} bookings</Text>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <DollarOutlined className="" />
-                      <Text>{formatCurrency(event.earnings)} earnings</Text>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <CheckCircleOutlined />
-                      <Text>{event.completedSchedules} completed</Text>
-                    </div>
-                  </div>
-                </Paragraph>
+                <div className="mb-2">
+                  <Text className="text-gray-600 text-xs">
+                    <CheckCircleOutlined className="mr-1" />
+                    Completed Schedules
+                  </Text>
+                  <Text strong className="ml-2">
+                    {event.completedSchedules}
+                  </Text>
+                </div>
+
                 <a
                   href="#"
                   className="text-blue-500 hover:underline flex items-center text-sm"

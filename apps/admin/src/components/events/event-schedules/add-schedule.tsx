@@ -63,7 +63,7 @@ export const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
         maxCapacity: values.maxCapacity,
         status: "Upcoming",
         bookings: 0,
-        revenue: 0,
+        totalEarnings: 0,
         paid: 0,
         toCollect: 0,
         color: values.color.toHexString(),
