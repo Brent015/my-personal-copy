@@ -214,8 +214,18 @@ const EventsTable: React.FC = () => {
   return (
     <Card>
       <Table<Event>
+        rowKey="key"
         title={() => <EventTableFilters />}
         expandable={{
+          onExpand: (expanded, row) => {
+            navigate({
+              search: (prev) => ({
+                ...prev,
+                expanded: expanded ? row.key : undefined,
+              }),
+            });
+          },
+          expandedRowKeys: search.expanded ? [search.expanded] : [],
           expandedRowRender: (record) => <ExpandedRowContent record={record} />,
         }}
         size="small"

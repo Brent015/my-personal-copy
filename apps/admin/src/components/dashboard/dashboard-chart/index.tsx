@@ -1,5 +1,5 @@
-import React from "react";
-import { Card, Typography } from "antd";
+import React, { useState, useEffect } from "react";
+import { Card, Typography, Radio, Spin, RadioChangeEvent } from "antd";
 import { formatCurrency, formatNumber } from "@/utils/format";
 import {
   LineChart,
@@ -12,42 +12,34 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { motion } from "framer-motion";
+import dayjs from "dayjs";
 
 const { Title } = Typography;
 
 interface ChartData {
-  month: string;
+  date: string;
   travelcoinsEarned: number;
   totalEarnings: number;
   bookings: number;
 }
 
-const chartData: ChartData[] = [
-  { month: "Jan", travelcoinsEarned: 50, totalEarnings: 180000, bookings: 180 },
-  { month: "Feb", travelcoinsEarned: 60, totalEarnings: 200000, bookings: 200 },
-  { month: "Mar", travelcoinsEarned: 75, totalEarnings: 250000, bookings: 220 },
-  { month: "Apr", travelcoinsEarned: 95, totalEarnings: 295000, bookings: 247 },
-  { month: "May", travelcoinsEarned: 85, totalEarnings: 270000, bookings: 230 },
-  {
-    month: "Jun",
-    travelcoinsEarned: 100,
-    totalEarnings: 310000,
-    bookings: 260,
-  },
-  {
-    month: "Jul",
-    travelcoinsEarned: 110,
-    totalEarnings: 330000,
-    bookings: 280,
-  },
-];
-
-const CustomTooltip: React.FC<{
+interface TooltipProps {
   active?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  payload?: any[];
+  payload?: Array<{
+    name: string;
+    value: number;
+    color: string;
+  }>;
   label?: string;
-}> = ({ active, payload, label }) => {
+}
+
+interface CustomizedDotProps {
+  cx: number;
+  cy: number;
+  stroke: string;
+}
+
+const CustomTooltip: React.FC<TooltipProps> = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
       <motion.div
@@ -72,10 +64,7 @@ const CustomTooltip: React.FC<{
   return null;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const CustomizedDot: React.FC<any> = (props) => {
-  const { cx, cy, stroke } = props;
-
+const CustomizedDot: React.FC<CustomizedDotProps> = ({ cx, cy, stroke }) => {
   return (
     <svg
       x={cx - 10}
@@ -91,78 +80,179 @@ const CustomizedDot: React.FC<any> = (props) => {
   );
 };
 
+type TimeRange = "7d" | "1m" | "3m" | "1y";
+
 const DashboardChart: React.FC = () => {
+  const [timeRange, setTimeRange] = useState<TimeRange>("7d");
+  const [loading, setLoading] = useState<boolean>(false);
+  const [chartData, setChartData] = useState<ChartData[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const generateChartData = (
+        start: dayjs.Dayjs,
+        end: dayjs.Dayjs
+      ): ChartData[] => {
+        const data: ChartData[] = [];
+        let current = start;
+        while (current.isBefore(end) || current.isSame(end, "day")) {
+          data.push({
+            date: current.format(getDateFormat(timeRange)),
+            travelcoinsEarned: Math.floor(Math.random() * 100) + 50,
+            totalEarnings: Math.floor(Math.random() * 200000) + 150000,
+            bookings: Math.floor(Math.random() * 100) + 150,
+          });
+          current = current.add(1, getDateIncrement(timeRange));
+        }
+        return data;
+      };
+      setLoading(true);
+      try {
+        // Simulate API call
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        const endDate = dayjs();
+        const startDate = getStartDate(endDate, timeRange);
+        const newData = generateChartData(startDate, endDate);
+        setChartData(newData);
+      } catch (error) {
+        console.error("Error fetching chart data:", error);
+        // Handle error (e.g., show error message to user)
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [timeRange]);
+
+  const getStartDate = (endDate: dayjs.Dayjs, range: TimeRange) => {
+    switch (range) {
+      case "7d":
+        return endDate.subtract(7, "day");
+      case "1m":
+        return endDate.subtract(1, "month");
+      case "3m":
+        return endDate.subtract(3, "month");
+      case "1y":
+        return endDate.subtract(1, "year");
+    }
+  };
+
+  const getDateFormat = (range: TimeRange): string => {
+    switch (range) {
+      case "7d":
+        return "MMM D";
+      case "1m":
+        return "MMM D";
+      case "3m":
+        return "MMM D";
+      case "1y":
+        return "MMM YYYY";
+    }
+  };
+
+  const getDateIncrement = (range: TimeRange): dayjs.ManipulateType => {
+    switch (range) {
+      case "7d":
+        return "day";
+      case "1m":
+        return "day";
+      case "3m":
+        return "week";
+      case "1y":
+        return "month";
+    }
+  };
+
+  const handleTimeRangeChange = (e: RadioChangeEvent) => {
+    setTimeRange(e.target.value as TimeRange);
+  };
+
   return (
-    <Card className="lg:col-span-2 shadow-lg rounded-xl overflow-hidden">
-      <Title level={4} className="mb-6">
-        Performance Metrics
-      </Title>
-      <ResponsiveContainer width="100%" height={300}>
-        <LineChart
-          data={chartData}
-          margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-        >
-          <defs>
-            <linearGradient id="colorTravelcoins" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-            </linearGradient>
-            <linearGradient id="colorEarnings" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-            </linearGradient>
-            <linearGradient id="colorBookings" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#ffc658" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#ffc658" stopOpacity={0} />
-            </linearGradient>
-          </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-          <XAxis dataKey="month" stroke="#666" />
-          <YAxis
-            yAxisId="left"
-            stroke="#666"
-            tickFormatter={(value) => formatNumber(value)}
-          />
-          <YAxis
-            yAxisId="right"
-            orientation="right"
-            stroke="#666"
-            tickFormatter={(value) => formatCurrency(value)}
-          />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend wrapperStyle={{ paddingTop: "20px" }} />
-          <Line
-            yAxisId="left"
-            type="monotone"
-            dataKey="travelcoinsEarned"
-            stroke="#8884d8"
-            strokeWidth={3}
-            name="Travelcoins Earned"
-            dot={<CustomizedDot />}
-            activeDot={{ r: 8 }}
-          />
-          <Line
-            yAxisId="right"
-            type="monotone"
-            dataKey="totalEarnings"
-            stroke="#82ca9d"
-            strokeWidth={3}
-            name="Total Earnings (PHP)"
-            dot={<CustomizedDot />}
-            activeDot={{ r: 8 }}
-          />
-          <Line
-            yAxisId="left"
-            type="monotone"
-            dataKey="bookings"
-            stroke="#ffc658"
-            strokeWidth={3}
-            name="No. of Bookings"
-            dot={<CustomizedDot />}
-            activeDot={{ r: 8 }}
-          />
-        </LineChart>
-      </ResponsiveContainer>
+    <Card className="lg:col-span-2 shadow-lg rounded-xl overflow-hidden ">
+      <div className="flex justify-between items-center mb-6">
+        <Title level={4} className="m-0">
+          Performance Metrics
+        </Title>
+        <Radio.Group value={timeRange} onChange={handleTimeRangeChange}>
+          <Radio.Button value="7d">7 Days</Radio.Button>
+          <Radio.Button value="1m">1 Month</Radio.Button>
+          <Radio.Button value="3m">3 Months</Radio.Button>
+          <Radio.Button value="1y">1 Year</Radio.Button>
+        </Radio.Group>
+      </div>
+      <Spin spinning={loading}>
+        <ResponsiveContainer width="100%" height={390}>
+          <LineChart
+            data={chartData}
+            margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+          >
+            <defs>
+              <linearGradient id="colorTravelcoins" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+              </linearGradient>
+              <linearGradient id="colorEarnings" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+              </linearGradient>
+              <linearGradient id="colorBookings" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#ffc658" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#ffc658" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+            <XAxis dataKey="date" stroke="#666" />
+            <YAxis
+              yAxisId="left"
+              stroke="#666"
+              tickFormatter={(value) => formatNumber(value)}
+            />
+            <YAxis
+              yAxisId="right"
+              orientation="right"
+              stroke="#666"
+              tickFormatter={(value) => formatCurrency(value)}
+            />
+            <Tooltip content={<CustomTooltip />} />
+            <Legend wrapperStyle={{ paddingTop: "20px" }} />
+            <Line
+              yAxisId="left"
+              type="monotone"
+              dataKey="travelcoinsEarned"
+              stroke="#8884d8"
+              strokeWidth={3}
+              name="Travelcoins Earned"
+              //@ts-expect-error - ignore error
+              dot={<CustomizedDot />}
+              activeDot={{ r: 8 }}
+            />
+            <Line
+              yAxisId="right"
+              type="monotone"
+              dataKey="totalEarnings"
+              stroke="#82ca9d"
+              strokeWidth={3}
+              name="Total Earnings (PHP)"
+              //@ts-expect-error - ignore error
+              dot={<CustomizedDot />}
+              activeDot={{ r: 8 }}
+            />
+            <Line
+              yAxisId="left"
+              type="monotone"
+              dataKey="bookings"
+              stroke="#ffc658"
+              strokeWidth={3}
+              name="No. of Bookings"
+              //@ts-expect-error - ignore error
+              dot={<CustomizedDot />}
+              activeDot={{ r: 8 }}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </Spin>
     </Card>
   );
 };

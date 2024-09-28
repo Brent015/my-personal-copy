@@ -70,6 +70,7 @@ export const eventsTableFilterSchema = z.object({
   ).default([FilterStatus.ACTIVE]),
   sortField: EventsSortableFieldSchema.optional(),
   sortOrder: SortDirectionSchema.optional(),
+  expanded: fallback(z.string(), "").optional(),
 });
 
 export type EventTableFilterState = z.infer<typeof eventsTableFilterSchema>;

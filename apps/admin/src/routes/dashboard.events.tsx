@@ -64,6 +64,7 @@ function EventsLayout() {
     <Card className="shadow-md">
       {!isEventEdit && !isViewSchedules && !isEvent && (
         <Tabs
+          type="card"
           activeKey={pathname.includes("/schedules") ? "2" : "1"}
           items={items}
         />
