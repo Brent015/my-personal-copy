@@ -1,4 +1,4 @@
-import { DatePicker, Form, Input, InputNumber, Modal } from "antd";
+import { DatePicker, Form, InputNumber, Modal } from "antd";
 import React from "react";
 import { Schedule } from "./types";
 
@@ -47,13 +47,6 @@ export const EditScheduleModal: React.FC<EditScheduleModalProps> = ({
       onCancel={onCancel}
     >
       <Form form={form} layout="vertical">
-        <Form.Item
-          name="eventName"
-          label="Event Name"
-          rules={[{ required: true }]}
-        >
-          <Input />
-        </Form.Item>
         <Form.Item
           name="dateRange"
           label="Date Range"

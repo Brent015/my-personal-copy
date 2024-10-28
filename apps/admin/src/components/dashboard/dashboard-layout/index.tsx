@@ -4,11 +4,21 @@ import {
   DashboardOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  PlusOutlined,
   SettingOutlined,
   WalletOutlined,
 } from "@ant-design/icons";
 import { Link, Outlet, useLocation } from "@tanstack/react-router";
-import { Button, ConfigProvider, Flex, Layout, Menu, Space, theme } from "antd";
+import {
+  Button,
+  ConfigProvider,
+  Dropdown,
+  Flex,
+  Layout,
+  Menu,
+  Space,
+  theme,
+} from "antd";
 import { useState } from "react";
 import styles from "./styles.module.css";
 
@@ -119,9 +129,28 @@ const DashboardLayout = () => {
               />
               <Space size={"middle"}>
                 <Button icon={<BellOutlined />}></Button>
-                <Link to="/dashboard/create">
-                  <Button type="primary">Create Event</Button>
-                </Link>
+
+                {/* <Button type="primary">Create Event</Button> */}
+                <Dropdown.Button
+                  icon={<PlusOutlined />}
+                  type="primary"
+                  menu={{
+                    items: [
+                      {
+                        key: "1",
+                        label: <Link to="/dashboard/create">New Event</Link>,
+                        icon: <CalendarOutlined />,
+                      },
+                      {
+                        key: "2",
+                        label: "New Schedule",
+                        icon: <CalendarOutlined />,
+                      },
+                    ],
+                  }}
+                >
+                  Create
+                </Dropdown.Button>
               </Space>
             </Flex>
           </Header>

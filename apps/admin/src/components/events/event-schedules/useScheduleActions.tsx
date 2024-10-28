@@ -45,19 +45,29 @@ export const useScheduleActions = (initialSchedules: Schedule[] = []) => {
     setIsEditModalVisible(false);
   };
 
-  const handleCollectionModalOk = (amount: number) => {
+  const handleCollectionModalOk = (guestId: string, amount: number) => {
     if (editingSchedule) {
       const updatedSchedule = {
         ...editingSchedule,
-        paid: editingSchedule.paid + amount,
+        guests: editingSchedule.guests?.map((guest) =>
+          guest.id === guestId
+            ? {
+                ...guest,
+                paidAmount: guest.paidAmount + amount,
+                balance: guest.balance - amount,
+              }
+            : guest
+        ),
         toCollect: editingSchedule.toCollect - amount,
       };
+
       setSchedules(
         schedules.map((s) =>
           s.id === updatedSchedule.id ? updatedSchedule : s
         )
       );
-      message.success(`Payment of ${amount} collected`);
+
+      message.success(`Payment of ${amount} collected from guest ${guestId}`);
     }
     setIsCollectionModalVisible(false);
   };

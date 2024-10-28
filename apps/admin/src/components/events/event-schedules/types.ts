@@ -14,6 +14,7 @@ export interface Schedule {
   coordinatorId?: string;
   vehicleId?: string;
   color?: string;
+  guests?: Guest[];
 }
 
 export interface OverallStats {
@@ -43,6 +44,14 @@ export interface OverallStats {
     timesUsed: number;
     totalCapacity: number;
   };
+}
+
+export interface Guest {
+  id: string;
+  name: string;
+  total: number;
+  paidAmount: number;
+  balance: number;
 }
 
 export const sampleOverallStats: OverallStats = {
@@ -76,6 +85,28 @@ export const sampleOverallStats: OverallStats = {
 
 import dayjs from "dayjs";
 
+const createGuest = (
+  id: string,
+  name: string,
+  total: number,
+  paidAmount: number
+): Guest => ({
+  id,
+  name,
+  total,
+  paidAmount,
+  balance: total - paidAmount,
+});
+
+// Sample guests
+const guests: Guest[] = [
+  createGuest("g1", "John Doe", 1000, 500),
+  createGuest("g2", "Jane Smith", 1500, 750),
+  createGuest("g3", "Bob Johnson", 800, 800),
+  createGuest("g4", "Alice Brown", 1200, 0),
+  createGuest("g5", "Charlie Davis", 950, 475),
+];
+
 export const sampleSchedules: Schedule[] = [
   {
     id: "1",
@@ -90,6 +121,7 @@ export const sampleSchedules: Schedule[] = [
     toCollect: 9000,
     coordinatorId: "1",
     vehicleId: "1",
+    guests,
   },
   {
     id: "2",
@@ -104,6 +136,7 @@ export const sampleSchedules: Schedule[] = [
     toCollect: 0,
     coordinatorId: "2",
     vehicleId: "2",
+    guests,
   },
   {
     id: "3",
@@ -118,6 +151,7 @@ export const sampleSchedules: Schedule[] = [
     toCollect: 0,
     coordinatorId: "3",
     vehicleId: "3",
+    guests,
   },
   {
     id: "4",
@@ -132,6 +166,7 @@ export const sampleSchedules: Schedule[] = [
     toCollect: 12000,
     coordinatorId: "1",
     vehicleId: "1",
+    guests,
   },
   {
     id: "5",
@@ -144,5 +179,6 @@ export const sampleSchedules: Schedule[] = [
     totalEarnings: 0,
     paid: 0,
     toCollect: 0,
+    guests,
   },
 ];

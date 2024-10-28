@@ -1,6 +1,6 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { getRouteApi, useNavigate } from "@tanstack/react-router";
-import { Button, Input, Space } from "antd";
+import { Input, Space } from "antd";
 import dayjs from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import React from "react";
@@ -14,11 +14,6 @@ const EventTableFilters: React.FC = () => {
   const handleSearch = (value: string) =>
     navigate({ search: (prev) => ({ ...prev, search: value }) });
 
-  const clearFilters = () =>
-    navigate({
-      search: () => ({}),
-    });
-
   return (
     <div className="pb-2">
       <Space size="middle" className="w-full">
@@ -30,10 +25,6 @@ const EventTableFilters: React.FC = () => {
           aria-label="Search by event title"
           className="flex-grow"
         />
-
-        <Button onClick={clearFilters} aria-label="Clear all filters">
-          Clear Filters
-        </Button>
       </Space>
     </div>
   );

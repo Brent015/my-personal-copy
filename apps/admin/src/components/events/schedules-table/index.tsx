@@ -21,6 +21,11 @@ import dayjs, { Dayjs } from "dayjs";
 import React, { useState } from "react";
 
 import { getRouteApi, useNavigate } from "@tanstack/react-router";
+import { AssignmentModal } from "../event-schedules/assignment";
+import { CancelModal } from "../event-schedules/cancel-schedule";
+import { CollectionModal } from "../event-schedules/collection";
+import { EditScheduleModal } from "../event-schedules/edit-schedule";
+import { useScheduleActions } from "../event-schedules/useScheduleActions";
 import { AllScheduleData, SchedulesTableFilterState } from "../types";
 import ScheduleFilters from "./filters";
 
@@ -59,30 +64,6 @@ const getStatusTag = (status: string) => {
   );
 };
 
-const actionItems: MenuProps["items"] = [
-  {
-    key: "1",
-    icon: <MoneyCollectOutlined />,
-    label: "Collection",
-  },
-  {
-    key: "2",
-    icon: <EditOutlined />,
-    label: "Edit",
-  },
-  {
-    key: "3",
-    icon: <UserOutlined />,
-    label: "Assignment",
-  },
-  {
-    key: "4",
-    icon: <DeleteOutlined />,
-    label: "Cancel",
-    danger: true,
-  },
-];
-
 const SchedulesTable: React.FC = () => {
   const search = getRouteApi("/dashboard/events/schedules").useSearch();
   const navigate = useNavigate({ from: "/dashboard/events/schedules" });
@@ -113,6 +94,45 @@ const SchedulesTable: React.FC = () => {
     setData(newData);
     setEditingField(null);
   };
+
+  const {
+    editingSchedule,
+    isEditModalVisible,
+    isCollectionModalVisible,
+    isAssignmentModalVisible,
+    isCancelModalVisible,
+    handleEditModalOk,
+    handleCollectionModalOk,
+    handleAssignmentModalOk,
+    handleCancelModalOk,
+
+    closeModals,
+  } = useScheduleActions();
+
+  const actionItems: MenuProps["items"] = [
+    {
+      key: "1",
+      icon: <EditOutlined />,
+      label: "Edit",
+    },
+    {
+      key: "2",
+      icon: <MoneyCollectOutlined />,
+      label: "Collection",
+    },
+
+    {
+      key: "3",
+      icon: <UserOutlined />,
+      label: "Assignment",
+    },
+    {
+      key: "4",
+      icon: <DeleteOutlined />,
+      label: "Cancel",
+      danger: true,
+    },
+  ];
 
   const columns: ColumnsType<AllScheduleData> = [
     {
@@ -285,6 +305,38 @@ const SchedulesTable: React.FC = () => {
           </Table.Summary.Row>
         )}
       />
+
+      {editingSchedule ? (
+        <>
+          <EditScheduleModal
+            schedule={editingSchedule}
+            visible={isEditModalVisible}
+            onOk={handleEditModalOk}
+            onCancel={closeModals}
+          />
+
+          <CollectionModal
+            schedule={editingSchedule}
+            visible={isCollectionModalVisible}
+            onOk={handleCollectionModalOk}
+            onCancel={closeModals}
+          />
+
+          <AssignmentModal
+            schedule={editingSchedule}
+            visible={isAssignmentModalVisible}
+            onOk={handleAssignmentModalOk}
+            onCancel={closeModals}
+          />
+
+          <CancelModal
+            schedule={editingSchedule}
+            visible={isCancelModalVisible}
+            onOk={handleCancelModalOk}
+            onCancel={closeModals}
+          />
+        </>
+      ) : null}
     </Card>
   );
 };

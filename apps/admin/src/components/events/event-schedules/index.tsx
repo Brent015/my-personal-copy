@@ -141,41 +141,43 @@ const EventSchedulesDashboard: React.FC = () => {
         )}
       </Card>
 
-      <EditScheduleModal
-        schedule={editingSchedule}
-        visible={isEditModalVisible}
-        onOk={handleEditModalOk}
-        onCancel={closeModals}
-      />
+      {editingSchedule ? (
+        <>
+          <EditScheduleModal
+            schedule={editingSchedule}
+            visible={isEditModalVisible}
+            onOk={handleEditModalOk}
+            onCancel={closeModals}
+          />
 
-      <CollectionModal
-        schedule={editingSchedule}
-        visible={isCollectionModalVisible}
-        onOk={handleCollectionModalOk}
-        onCancel={closeModals}
-      />
+          <CollectionModal
+            schedule={editingSchedule}
+            visible={isCollectionModalVisible}
+            onOk={handleCollectionModalOk}
+            onCancel={closeModals}
+          />
 
-      <AssignmentModal
-        schedule={editingSchedule}
-        visible={isAssignmentModalVisible}
-        onOk={handleAssignmentModalOk}
-        onCancel={closeModals}
-      />
+          <AssignmentModal
+            schedule={editingSchedule}
+            visible={isAssignmentModalVisible}
+            onOk={handleAssignmentModalOk}
+            onCancel={closeModals}
+          />
 
-      <CancelModal
-        schedule={editingSchedule}
-        visible={isCancelModalVisible}
-        onOk={handleCancelModalOk}
-        onCancel={closeModals}
-      />
-
+          <CancelModal
+            schedule={editingSchedule}
+            visible={isCancelModalVisible}
+            onOk={handleCancelModalOk}
+            onCancel={closeModals}
+          />
+        </>
+      ) : null}
       <AddScheduleModal
         visible={isAddModalVisible}
         onOk={handleAddModalOk}
         onCancel={closeModals}
         existingSchedules={schedules}
       />
-
       <Tooltip title="Add new schedule">
         <Button
           onClick={handleAddSchedule}

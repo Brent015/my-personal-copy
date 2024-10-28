@@ -1,6 +1,6 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { getRouteApi, useNavigate } from "@tanstack/react-router";
-import { Button, DatePicker, Input, Space } from "antd";
+import { DatePicker, Input, Space } from "antd";
 import dayjs, { Dayjs } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import React from "react";
@@ -29,12 +29,6 @@ const SchedulesTableFilters: React.FC = () => {
     }
   };
 
-  const clearFilters = () => {
-    navigate({
-      search: () => ({}),
-    });
-  };
-
   return (
     <div className="pb-2">
       <Space size="middle" className="w-full">
@@ -52,9 +46,6 @@ const SchedulesTableFilters: React.FC = () => {
           value={[dayjs(search.startDate), dayjs(search.endDate)]}
           aria-label="Filter schedules by date range"
         />
-        <Button onClick={clearFilters} aria-label="Clear all filters">
-          Clear Filters
-        </Button>
       </Space>
     </div>
   );

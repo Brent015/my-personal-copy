@@ -1,10 +1,4 @@
 import {
-  CalendarOutlined,
-  CarOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import {
   ColorPicker,
   DatePicker,
   Form,
@@ -94,33 +88,19 @@ export const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
       <Form form={form} layout="vertical">
         <Form.Item
           name="dateRange"
-          label={
-            <span className="flex items-center">
-              <CalendarOutlined className="mr-2" /> Date Range
-            </span>
-          }
+          label="Date Range"
           rules={[{ required: true }]}
         >
           <RangePicker disabledDate={disabledDate} className="w-full" />
         </Form.Item>
         <Form.Item
           name="maxCapacity"
-          label={
-            <span className="flex items-center">
-              <TeamOutlined className="mr-2" /> Max Guests
-            </span>
-          }
+          label={<span className="flex items-center">Max Guests</span>}
           rules={[{ required: true }]}
         >
           <InputNumber min={1} className="w-full" />
         </Form.Item>
-        <Form.Item
-          label={
-            <span className="flex items-center">
-              <UserOutlined className="mr-2" /> Coordinator
-            </span>
-          }
-        >
+        <Form.Item label="Coordinator">
           <Select
             className="w-full"
             allowClear
@@ -133,13 +113,7 @@ export const AddScheduleModal: React.FC<AddScheduleModalProps> = ({
             ))}
           </Select>
         </Form.Item>
-        <Form.Item
-          label={
-            <span className="flex items-center">
-              <CarOutlined className="mr-2" /> Vehicle
-            </span>
-          }
-        >
+        <Form.Item label="Vehicle">
           <Select className="w-full" allowClear placeholder="Select a vehicle">
             {sampleVehicles.map((vehicle) => (
               <Select.Option key={vehicle.id} value={vehicle.id}>
