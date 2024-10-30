@@ -39,7 +39,7 @@ function Events() {
           {mockEvents.map((event, index) => (
             <div
               key={index}
-              className="min-w-[280px] w-[280px] flex-shrink-0 snap-start"
+              className="min-w-[356px] w-[356px] flex-shrink-0 snap-start"
             >
               <FeaturedCard {...event} />
             </div>

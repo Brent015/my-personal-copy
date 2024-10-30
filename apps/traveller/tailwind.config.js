@@ -28,6 +28,7 @@ export default {
           black: "#101010",
         },
         warmGray: {
+          500: "#F5EAE0",
           700: "#9F948B",
         },
         outline: { primary: "#E4DFDF" },

@@ -38,22 +38,22 @@ const FeaturedCard: React.FC<EventCardProps> = ({
 
       {/* Content */}
       <div className="absolute bottom-0 left-0 p-4 w-full">
-        <h3 className="text-xl font-semibold text-white mb-2">{title}</h3>
+        <h3 className="text-base font-medium text-white">{title}</h3>
 
-        <div className="flex items-center justify-between">
+        <div className="flex gap-1 justify-between flex-col">
           {/* Organizer Info */}
           <div className="flex items-center gap-2">
-            <Avatar className="w-6 h-6">
+            <Avatar className="w-4 h-4">
               <AvatarImage src={organizerAvatarUrl} alt={organizerName} />
               <AvatarFallback>{organizerName[0]}</AvatarFallback>
             </Avatar>
-            <span className="text-sm text-white/90">Organizer</span>
+            <span className="text-sm text-warmGray-500">Organizer</span>
           </div>
 
           {/* Price */}
           <div className="flex items-baseline gap-1">
             <span className="text-sm text-white/90">min.</span>
-            <span className="text-lg font-semibold text-white">
+            <span className="text-2xl font-semibold text-white">
               {currency} {formatCurrency(minPrice)}
             </span>
           </div>
