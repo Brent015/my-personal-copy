@@ -79,8 +79,6 @@ const VisibilityToggle: React.FC<VisibilityToggleProps> = ({
 const EventsTable: React.FC = () => {
   const search = getRouteApi("/dashboard/events/").useSearch();
   const navigate = useNavigate({ from: "/dashboard/events/" });
-  console.log("search", search);
-  // const { filteredData, handleFilterChange } = useTableFilters<EventData>(data);
 
   const handleVisibilityToggle = async (eventId: string, visible: boolean) => {
     console.log(eventId, visible);
