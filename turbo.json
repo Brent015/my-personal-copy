@@ -6,7 +6,7 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**", "dist/**"]
+      "outputs": ["dist/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
@@ -18,6 +18,9 @@
     "start": {
       "cache": false,
       "persistent": true
+    },
+    "preview": {
+      "dependsOn": ["build"]
     },
     "db:generate": {
       "cache": false
