@@ -72,7 +72,7 @@ function Events() {
         </div>
 
         <div className="flex gap-4 overflow-x-auto pb-4  px-4 snap-x scrollbar-hidden">
-          {mockEvents.map((event, index) => (
+          {mockEvents.map((_, index) => (
             <div
               key={index}
               className="h-[200px] w-[110px] flex-shrink-0 snap-start"
