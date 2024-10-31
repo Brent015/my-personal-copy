@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Event } from "@/types/event";
+import { Star } from "lucide-react";
 
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
   return (
@@ -42,7 +43,11 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
 
         <div className="flex items-center gap-4 text-sm text-grayscale-300 font-medium">
           {event.rating && (
-            <span className="flex items-center gap-1">⭐ {event.rating}</span>
+            <span className="flex items-center gap-1">
+              {" "}
+              <Star className="text-yellow-primary fill-current w-3 h-3" />{" "}
+              {event.rating}
+            </span>
           )}
           <span className="rounded-full w-1 h-1 bg-grayscale-500"></span>
           <span className="flex items-center gap-1">👤 {event.organizer}</span>

@@ -24,7 +24,7 @@ const FeaturedCard: React.FC<EventCardProps> = ({
   currency = "₱",
 }) => {
   return (
-    <Card className="relative w-full overflow-hidden rounded-lg aspect-[4/3] group">
+    <Card className="relative w-full h-full overflow-hidden rounded-lg aspect-[4/3] group">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
