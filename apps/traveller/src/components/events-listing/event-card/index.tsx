@@ -1,11 +1,19 @@
+import { DotSeparator } from "@/components/common";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Event } from "@/types/event";
+import { useNavigate } from "@tanstack/react-router";
 import { Star } from "lucide-react";
 
 const EventCard: React.FC<{ event: Event }> = ({ event }) => {
+  const navigate = useNavigate();
   return (
-    <Card className="overflow-hidden mb-4 rounded-lg border border-outline-primary">
+    <Card
+      className="overflow-hidden mb-4 rounded-lg border border-outline-primary"
+      onClick={() => {
+        navigate({ to: "/events/$eventId", params: { eventId: "1" } });
+      }}
+    >
       <div className="relative">
         <img
           src={event.image}
@@ -49,9 +57,9 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
               {event.rating}
             </span>
           )}
-          <span className="rounded-full w-1 h-1 bg-grayscale-500"></span>
+          <DotSeparator />
           <span className="flex items-center gap-1">👤 {event.organizer}</span>
-          <span className="rounded-full w-1 h-1 bg-grayscale-500"></span>
+          <DotSeparator />
           <span>{event.bookings} bookings</span>
         </div>
       </div>

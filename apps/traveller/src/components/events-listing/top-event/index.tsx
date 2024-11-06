@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Star } from "lucide-react";
 
 const TopEventCard: React.FC<{
@@ -23,7 +24,13 @@ const TopEventCard: React.FC<{
             {rating}
           </span>
         )}
-        <span className="flex items-center gap-1 text-sm">👤 {organizer}</span>
+        <span className="flex items-center gap-1 text-sm">
+          <Avatar className="w-5 h-5">
+            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>{" "}
+          {organizer}
+        </span>
       </div>
     </div>
   );

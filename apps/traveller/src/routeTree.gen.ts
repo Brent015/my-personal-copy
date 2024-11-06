@@ -14,6 +14,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as HomeHomeImport } from './routes/home/_home'
+import { Route as EventsEventIdImport } from './routes/events/$eventId'
 import { Route as HomeHomeOrganizersImport } from './routes/home/_home/organizers'
 import { Route as HomeHomeListingImport } from './routes/home/_home/listing'
 import { Route as HomeHomeEventsImport } from './routes/home/_home/events'
@@ -33,6 +34,12 @@ const HomeRoute = HomeImport.update({
 const HomeHomeRoute = HomeHomeImport.update({
   id: '/_home',
   getParentRoute: () => HomeRoute,
+} as any)
+
+const EventsEventIdRoute = EventsEventIdImport.update({
+  id: '/events/$eventId',
+  path: '/events/$eventId',
+  getParentRoute: () => rootRoute,
 } as any)
 
 const HomeHomeOrganizersRoute = HomeHomeOrganizersImport.update({
@@ -57,6 +64,13 @@ const HomeHomeEventsRoute = HomeHomeEventsImport.update({
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/events/$eventId': {
+      id: '/events/$eventId'
+      path: '/events/$eventId'
+      fullPath: '/events/$eventId'
+      preLoaderRoute: typeof EventsEventIdImport
+      parentRoute: typeof rootRoute
+    }
     '/home': {
       id: '/home'
       path: '/home'
@@ -124,6 +138,7 @@ const HomeRouteChildren: HomeRouteChildren = {
 const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren)
 
 export interface FileRoutesByFullPath {
+  '/events/$eventId': typeof EventsEventIdRoute
   '/home': typeof HomeHomeRouteWithChildren
   '/home/events': typeof HomeHomeEventsRoute
   '/home/listing': typeof HomeHomeListingRoute
@@ -131,6 +146,7 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
+  '/events/$eventId': typeof EventsEventIdRoute
   '/home': typeof HomeHomeRouteWithChildren
   '/home/events': typeof HomeHomeEventsRoute
   '/home/listing': typeof HomeHomeListingRoute
@@ -139,6 +155,7 @@ export interface FileRoutesByTo {
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
+  '/events/$eventId': typeof EventsEventIdRoute
   '/home': typeof HomeRouteWithChildren
   '/home/_home': typeof HomeHomeRouteWithChildren
   '/home/_home/events': typeof HomeHomeEventsRoute
@@ -148,11 +165,22 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/home' | '/home/events' | '/home/listing' | '/home/organizers'
+  fullPaths:
+    | '/events/$eventId'
+    | '/home'
+    | '/home/events'
+    | '/home/listing'
+    | '/home/organizers'
   fileRoutesByTo: FileRoutesByTo
-  to: '/home' | '/home/events' | '/home/listing' | '/home/organizers'
+  to:
+    | '/events/$eventId'
+    | '/home'
+    | '/home/events'
+    | '/home/listing'
+    | '/home/organizers'
   id:
     | '__root__'
+    | '/events/$eventId'
     | '/home'
     | '/home/_home'
     | '/home/_home/events'
@@ -162,10 +190,12 @@ export interface FileRouteTypes {
 }
 
 export interface RootRouteChildren {
+  EventsEventIdRoute: typeof EventsEventIdRoute
   HomeRoute: typeof HomeRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
+  EventsEventIdRoute: EventsEventIdRoute,
   HomeRoute: HomeRouteWithChildren,
 }
 
@@ -181,8 +211,12 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
+        "/events/$eventId",
         "/home"
       ]
+    },
+    "/events/$eventId": {
+      "filePath": "events/$eventId.tsx"
     },
     "/home": {
       "filePath": "home",

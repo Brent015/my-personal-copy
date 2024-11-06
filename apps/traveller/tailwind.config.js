@@ -21,9 +21,11 @@ export default {
       colors: {
         yellow: { primary: "#FBC50A" },
         grayscale: {
+          100: "#3C3A3B",
           300: "#858384",
           400: "#ACAAAB",
           500: "#E4DFDF",
+          600: "#EDEDED",
           700: "#F8F8F8",
           black: "#101010",
         },
