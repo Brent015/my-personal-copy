@@ -1,21 +1,21 @@
 import {
   Category,
   FeaturedOrganizerCard,
-} from '@/components/organizers-listing'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { createFileRoute } from '@tanstack/react-router'
+} from '@/components/organizers-listing';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/home/_home/organizers/')({
   component: () => <Organizers />,
-})
+});
 
 type Organizer = {
-  title: string
-  imageUrl: string
-  name: string
-  avatarUrl: string
-  noOfEvents: number
-  rating: string
+  title: string;
+  imageUrl: string;
+  name: string;
+  avatarUrl: string;
+  noOfEvents: number;
+  rating: string;
 }
 
 const mockOrganizers: Organizer[] = [
@@ -51,11 +51,11 @@ const mockOrganizers: Organizer[] = [
     noOfEvents: 2,
     rating: '4.5',
   },
-]
+];
 
 function Organizers() {
   const getInitial = (name: string) => {
-    return name?.trim().charAt(0).toUpperCase() || 'O' // Fallback to 'O' for Organizer
+    return name?.trim().charAt(0).toUpperCase() || 'O'; // Fallback to 'O' for Organizer
   }
 
   return (
@@ -89,5 +89,5 @@ function Organizers() {
       <Category title="Beach" organizers={mockOrganizers} />
       <Category title="Hiking" organizers={mockOrganizers} />
     </div>
-  )
+  );
 }
