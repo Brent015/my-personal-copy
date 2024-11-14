@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Star } from 'lucide-react';
 
 interface Organizer {
@@ -15,11 +16,23 @@ interface CategoryProps {
 }
 
 const Category: React.FC<CategoryProps> = ({ title, organizers }) => {
+  const navigation = useNavigate();
+
+  const toSnakeCase = (text: string): string => {
+    return text
+      .replace(/\s+/g, '_')
+      .toLowerCase();
+  };
+
+  const redirectToCategory = () => {
+    navigation({ to: `/home/organizers/category/${toSnakeCase(title)}` } as any);
+  }; 
+
   return (
     <section className="w-full max-w-4xl mx-auto">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-lg font-medium">{title}</h1>
-        <Button variant="ghost" size="icon">
+        <Button variant="ghost" size="icon" onClick={redirectToCategory}>
           <ArrowRight />
         </Button>
       </div>

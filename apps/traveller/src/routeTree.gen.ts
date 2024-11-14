@@ -15,9 +15,10 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as HomeHomeImport } from './routes/home/_home'
 import { Route as EventsEventIdImport } from './routes/events/$eventId'
-import { Route as HomeHomeOrganizersImport } from './routes/home/_home/organizers'
 import { Route as HomeHomeListingImport } from './routes/home/_home/listing'
 import { Route as HomeHomeEventsImport } from './routes/home/_home/events'
+import { Route as HomeHomeOrganizersIndexImport } from './routes/home/_home/organizers/index'
+import { Route as HomeHomeOrganizersCategoryCategoryImport } from './routes/home/_home/organizers/category.$category'
 
 // Create Virtual Routes
 
@@ -42,12 +43,6 @@ const EventsEventIdRoute = EventsEventIdImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const HomeHomeOrganizersRoute = HomeHomeOrganizersImport.update({
-  id: '/organizers',
-  path: '/organizers',
-  getParentRoute: () => HomeHomeRoute,
-} as any)
-
 const HomeHomeListingRoute = HomeHomeListingImport.update({
   id: '/listing',
   path: '/listing',
@@ -59,6 +54,19 @@ const HomeHomeEventsRoute = HomeHomeEventsImport.update({
   path: '/events',
   getParentRoute: () => HomeHomeRoute,
 } as any)
+
+const HomeHomeOrganizersIndexRoute = HomeHomeOrganizersIndexImport.update({
+  id: '/organizers/',
+  path: '/organizers/',
+  getParentRoute: () => HomeHomeRoute,
+} as any)
+
+const HomeHomeOrganizersCategoryCategoryRoute =
+  HomeHomeOrganizersCategoryCategoryImport.update({
+    id: '/organizers/category/$category',
+    path: '/organizers/category/$category',
+    getParentRoute: () => HomeHomeRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -99,11 +107,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeHomeListingImport
       parentRoute: typeof HomeHomeImport
     }
-    '/home/_home/organizers': {
-      id: '/home/_home/organizers'
+    '/home/_home/organizers/': {
+      id: '/home/_home/organizers/'
       path: '/organizers'
       fullPath: '/home/organizers'
-      preLoaderRoute: typeof HomeHomeOrganizersImport
+      preLoaderRoute: typeof HomeHomeOrganizersIndexImport
+      parentRoute: typeof HomeHomeImport
+    }
+    '/home/_home/organizers/category/$category': {
+      id: '/home/_home/organizers/category/$category'
+      path: '/organizers/category/$category'
+      fullPath: '/home/organizers/category/$category'
+      preLoaderRoute: typeof HomeHomeOrganizersCategoryCategoryImport
       parentRoute: typeof HomeHomeImport
     }
   }
@@ -114,13 +129,16 @@ declare module '@tanstack/react-router' {
 interface HomeHomeRouteChildren {
   HomeHomeEventsRoute: typeof HomeHomeEventsRoute
   HomeHomeListingRoute: typeof HomeHomeListingRoute
-  HomeHomeOrganizersRoute: typeof HomeHomeOrganizersRoute
+  HomeHomeOrganizersIndexRoute: typeof HomeHomeOrganizersIndexRoute
+  HomeHomeOrganizersCategoryCategoryRoute: typeof HomeHomeOrganizersCategoryCategoryRoute
 }
 
 const HomeHomeRouteChildren: HomeHomeRouteChildren = {
   HomeHomeEventsRoute: HomeHomeEventsRoute,
   HomeHomeListingRoute: HomeHomeListingRoute,
-  HomeHomeOrganizersRoute: HomeHomeOrganizersRoute,
+  HomeHomeOrganizersIndexRoute: HomeHomeOrganizersIndexRoute,
+  HomeHomeOrganizersCategoryCategoryRoute:
+    HomeHomeOrganizersCategoryCategoryRoute,
 }
 
 const HomeHomeRouteWithChildren = HomeHomeRoute._addFileChildren(
@@ -142,7 +160,8 @@ export interface FileRoutesByFullPath {
   '/home': typeof HomeHomeRouteWithChildren
   '/home/events': typeof HomeHomeEventsRoute
   '/home/listing': typeof HomeHomeListingRoute
-  '/home/organizers': typeof HomeHomeOrganizersRoute
+  '/home/organizers': typeof HomeHomeOrganizersIndexRoute
+  '/home/organizers/category/$category': typeof HomeHomeOrganizersCategoryCategoryRoute
 }
 
 export interface FileRoutesByTo {
@@ -150,7 +169,8 @@ export interface FileRoutesByTo {
   '/home': typeof HomeHomeRouteWithChildren
   '/home/events': typeof HomeHomeEventsRoute
   '/home/listing': typeof HomeHomeListingRoute
-  '/home/organizers': typeof HomeHomeOrganizersRoute
+  '/home/organizers': typeof HomeHomeOrganizersIndexRoute
+  '/home/organizers/category/$category': typeof HomeHomeOrganizersCategoryCategoryRoute
 }
 
 export interface FileRoutesById {
@@ -160,7 +180,8 @@ export interface FileRoutesById {
   '/home/_home': typeof HomeHomeRouteWithChildren
   '/home/_home/events': typeof HomeHomeEventsRoute
   '/home/_home/listing': typeof HomeHomeListingRoute
-  '/home/_home/organizers': typeof HomeHomeOrganizersRoute
+  '/home/_home/organizers/': typeof HomeHomeOrganizersIndexRoute
+  '/home/_home/organizers/category/$category': typeof HomeHomeOrganizersCategoryCategoryRoute
 }
 
 export interface FileRouteTypes {
@@ -171,6 +192,7 @@ export interface FileRouteTypes {
     | '/home/events'
     | '/home/listing'
     | '/home/organizers'
+    | '/home/organizers/category/$category'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/events/$eventId'
@@ -178,6 +200,7 @@ export interface FileRouteTypes {
     | '/home/events'
     | '/home/listing'
     | '/home/organizers'
+    | '/home/organizers/category/$category'
   id:
     | '__root__'
     | '/events/$eventId'
@@ -185,7 +208,8 @@ export interface FileRouteTypes {
     | '/home/_home'
     | '/home/_home/events'
     | '/home/_home/listing'
-    | '/home/_home/organizers'
+    | '/home/_home/organizers/'
+    | '/home/_home/organizers/category/$category'
   fileRoutesById: FileRoutesById
 }
 
@@ -230,7 +254,8 @@ export const routeTree = rootRoute
       "children": [
         "/home/_home/events",
         "/home/_home/listing",
-        "/home/_home/organizers"
+        "/home/_home/organizers/",
+        "/home/_home/organizers/category/$category"
       ]
     },
     "/home/_home/events": {
@@ -241,8 +266,12 @@ export const routeTree = rootRoute
       "filePath": "home/_home/listing.tsx",
       "parent": "/home/_home"
     },
-    "/home/_home/organizers": {
-      "filePath": "home/_home/organizers.tsx",
+    "/home/_home/organizers/": {
+      "filePath": "home/_home/organizers/index.tsx",
+      "parent": "/home/_home"
+    },
+    "/home/_home/organizers/category/$category": {
+      "filePath": "home/_home/organizers/category.$category.tsx",
       "parent": "/home/_home"
     }
   }
