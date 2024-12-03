@@ -24,7 +24,10 @@ const Category: React.FC<CategoryProps> = ({ title, organizers }) => {
   };
 
   const redirectToCategory = () => {
-    navigation({ to: `/home/organizers/category/${toSnakeCase(title)}` });
+    navigation({
+      to: "/organizers/$category",
+      params: { category: toSnakeCase(title) },
+    });
   };
 
   return (

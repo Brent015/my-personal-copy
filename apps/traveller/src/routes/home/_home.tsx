@@ -9,7 +9,7 @@ export const Route = createFileRoute("/home/_home")({
 function HomeLayout() {
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="bg-white p-4 pb-0 fixed w-full bg-white z-10">
+      <div className="bg-white p-4 pb-0 fixed w-full z-10">
         {/* Search Bar */}
         <div className="mb-4">
           <EventsSearchBar />

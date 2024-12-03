@@ -5,7 +5,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/home/_home/organizers/")({
+export const Route = createFileRoute("/home/_home/organizers")({
   component: () => <Organizers />,
 });
 
