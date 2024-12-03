@@ -75,6 +75,9 @@ export default {
           5: "hsl(var(--chart-5))",
         },
       },
+      gridTemplateColumns: {
+        "auto-fit": "repeat(auto-fit, minmax(100px, 1fr))",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
