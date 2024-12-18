@@ -1,13 +1,11 @@
-// types.ts
+import { cn } from "@/lib/utils";
+import { Link } from "@tanstack/react-router";
+
 export interface Tab {
   id: string;
   label: string;
   href: string;
 }
-
-// TabNavigation.tsx
-import { cn } from "@/lib/utils";
-import { Link } from "@tanstack/react-router";
 
 const tabs = [
   { id: "home", label: "Home", href: "/home/listing" },
@@ -17,20 +15,26 @@ const tabs = [
 
 const TabNavigation = () => {
   return (
-    <nav className="w-full bg-white ">
+    <nav className="w-full bg-white sticky top-0 z-40">
       <div className="max-w-screen-xl -mx-4 border-b border-outline-primary">
-        <ul className="flex space-x-2 px-4 py-2 pb-4">
+        <ul className="flex overflow-x-auto scrollbar-hidden px-4 py-2 pb-4">
           {tabs.map((tab) => (
-            <li key={tab.id}>
+            <li key={tab.id} className="flex-none first:pl-0 last:pr-0">
               <Link to={tab.href}>
                 {({ isActive }) => {
                   return (
                     <button
                       className={cn(
-                        "relative py-1 px-2 text-xl font-medium transition-colors duration-200",
-                        "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 rounded",
+                        // Base styles
+                        "relative py-2 px-4 text-lg font-medium rounded-lg",
+                        "transition-colors duration-200 whitespace-nowrap",
+                        // Touch interactions
+                        "touch-none active:scale-98",
+                        // Focus states
+                        "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500",
+                        // Active/Inactive states
                         isActive
-                          ? "text-yellow-primary bg-[#FBC50A1A]"
+                          ? ["text-yellow-primary bg-[#FBC50A1A]"]
                           : "text-grayscale-400 hover:text-gray-600"
                       )}
                       aria-current={isActive ? "page" : undefined}

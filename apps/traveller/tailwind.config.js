@@ -30,8 +30,13 @@ export default {
           black: "#101010",
         },
         warmGray: {
+          100: "#F8F5F3",
           500: "#F5EAE0",
           700: "#9F948B",
+        },
+        teal: {
+          primary: "#27B9D7",
+          secondary: "#00A9CE",
         },
         outline: { primary: "#E4DFDF" },
         background: "hsl(var(--background))",

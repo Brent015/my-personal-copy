@@ -1,10 +1,11 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState, useEffect, useCallback, TouchEvent } from "react";
-import { Check, MapPin, Star, Users } from "lucide-react";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DotSeparator } from "@/components/common";
+import { PackageItem } from "@/components/events";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { createFileRoute } from "@tanstack/react-router";
+
+import { CalendarIcon, MapPin, Star, Users } from "lucide-react";
+import { TouchEvent, useCallback, useEffect, useState } from "react";
 
 export const Route = createFileRoute("/events/$eventId")({
   component: EventPage,
@@ -76,7 +77,7 @@ function EventPage() {
   };
 
   return (
-    <div className="pb-[102px] h-screen flex flex-col overflow-x-hidden">
+    <div className="pb-[167px] h-screen flex flex-col overflow-x-hidden">
       {/* Image Carousel */}
       <div className="relative w-full h-64 bg-gray-100 touch-pan-y">
         <div
@@ -170,17 +171,18 @@ function EventPage() {
           <div className="flex gap-2 mb-4 text-sm">
             <Button
               variant="outline"
-              className="bg-yellow-400 border-yellow-400 text-black h-8"
+              className="bg-yellow-400 border-yellow-400 text-black p-2"
             >
               3 Oct
             </Button>
-            <Button variant="outline" className="bg-white h-8">
+            <Button variant="outline" className="bg-white p-2">
               4 Oct
             </Button>
-            <Button variant="outline" className="bg-white h-8">
+            <Button variant="outline" className="bg-white p-2">
               5 Oct
             </Button>
-            <Button variant="outline" className="bg-black text-white h-8">
+            <Button variant="outline" className="bg-black text-white p-2">
+              <CalendarIcon />
               All dates
             </Button>
           </div>
@@ -189,29 +191,7 @@ function EventPage() {
 
           <div className="space-y-3">
             {[1, 2, 3].map((index) => (
-              <Card
-                key={index}
-                className={`p-4 relative ${index === 1 ? "border-yellow-400" : ""}`}
-              >
-                <div className="flex justify-between items-start">
-                  <div className="space-y-2">
-                    <h3 className="font-semibold">Package Title</h3>
-                    <div className="text-sm text-gray-500 flex items-center gap-1">
-                      <span>🥾</span> Hiking, Diving
-                    </div>
-                    <button className="text-blue-400 text-sm">
-                      More details →
-                    </button>
-                  </div>
-                  <div className="font-semibold">₱ 1,700</div>
-                </div>
-                <div
-                  className={`absolute right-4 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full border flex items-center justify-center
-                  ${index === 1 ? "border-yellow-400 bg-yellow-400" : "border-gray-200"}`}
-                >
-                  {index === 1 && <Check className="h-4 w-4 text-black" />}
-                </div>
-              </Card>
+              <PackageItem key={index} index={index} />
             ))}
           </div>
         </div>
@@ -221,11 +201,11 @@ function EventPage() {
             <h2 className="font-semibold">Reviews</h2>
             <button className="text-blue-400 text-sm">→</button>
           </div>
-          <div className="space-y-4">
-            {[1, 2].map((index) => (
-              <div key={index} className="border-t pt-4">
+          <div className="flex gap-2 overflow-x-auto snap-x scrollbar-hidden">
+            {[1, 2, 3].map((index) => (
+              <div key={index} className="border min-w-[180px] p-3 rounded-lg ">
                 <div className="flex items-center gap-3 mb-2">
-                  <Avatar>
+                  <Avatar className="w-8 h-8">
                     <AvatarImage src="/api/placeholder/40/40" />
                     <AvatarFallback>T</AvatarFallback>
                   </Avatar>
@@ -245,7 +225,7 @@ function EventPage() {
         </div>
       </div>
 
-      <div className="fixed z-20- bottom-[65px] left-0 right-0 border-t bg-white p-4">
+      <div className="fixed z-20 bottom-[65px] left-0 right-0 border-t border-t-yellow-primary bg-[#fefbf2] p-4">
         <div className="flex items-center justify-between">
           <div>
             <div className="text-lg font-bold">₱ 1,700</div>
