@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Home, Search, User, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "@tanstack/react-router";
@@ -40,7 +40,35 @@ const navItems: NavItem[] = [
   },
 ];
 
+const useScrollDirection = () => {
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const updateScrollDirection = () => {
+      const currentScrollY = window.scrollY;
+      const scrollDifference = currentScrollY - lastScrollY;
+
+      // Only update state if scroll difference is significant (>5px)
+      if (Math.abs(scrollDifference) > 5) {
+        setIsScrollingDown(scrollDifference > 0);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    // Add event listener with passive option for better performance
+    window.addEventListener("scroll", updateScrollDirection, { passive: true });
+
+    return () => window.removeEventListener("scroll", updateScrollDirection);
+  }, [lastScrollY]);
+
+  return isScrollingDown;
+};
+
 const BottomNav: React.FC = () => {
+  const isScrollingDown = useScrollDirection();
+
   // Optional: Add haptic feedback for iOS devices
   const handlePress = () => {
     if ("vibrate" in navigator) {
@@ -49,7 +77,13 @@ const BottomNav: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 border-t bg-background pb-safe">
+    <div
+      className={cn(
+        "fixed bottom-0 left-0 right-0 z-50 border-t bg-background pb-safe",
+        "transition-transform duration-300 ease-in-out",
+        isScrollingDown ? "translate-y-full" : "translate-y-0"
+      )}
+    >
       <nav className="mx-auto max-w-md" role="navigation" aria-label="Main">
         <ul className="flex items-center justify-between px-2 py-2">
           {navItems.map((item) => (
