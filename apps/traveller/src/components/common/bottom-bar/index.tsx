@@ -21,7 +21,7 @@ const BottomNav = () => {
       icon: <Home className="h-6 w-6" />,
       label: "Home",
       value: "home",
-      href: "/home/listing/",
+      href: "/home",
     },
     {
       icon: <Search className="h-6 w-6" />,
