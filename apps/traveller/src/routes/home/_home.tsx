@@ -16,7 +16,6 @@ function HomeLayout() {
     threshold: 5,
     showAtTop: true,
     topThreshold: 50,
-    settleTime: 1000,
     debounceDelay: 100,
   });
   const { isNavHidden } = useBottomBarNavigation();
@@ -36,7 +35,7 @@ function HomeLayout() {
           "bg-grayscale-700  pt-[145px] scrollbar-hidden overflow-y-auto overflow-x-hidden",
           {
             "max-h-[calc(100vh_-_72px)] ": !isNavHidden,
-            "max-h-screen pb-[72px]": isNavHidden,
+            "max-h-screen": isNavHidden,
           }
         )}
       >
