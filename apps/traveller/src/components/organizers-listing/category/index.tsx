@@ -1,10 +1,11 @@
-import React from "react";
-import { Button } from "@/components/ui/button";
-import { useNavigate } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
-import OrganizerCard from "../organizer-card";
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from '@tanstack/react-router';
+import { ArrowRight } from 'lucide-react';
+import OrganizerCard from '../organizer-card';
 
 interface Organizer {
+  id: string;
   name: string;
   avatarUrl: string;
   noOfEvents: number;
@@ -20,12 +21,12 @@ const Category: React.FC<CategoryProps> = ({ title, organizers }) => {
   const navigation = useNavigate();
 
   const toSnakeCase = (text: string): string => {
-    return text.replace(/\s+/g, "_").toLowerCase();
+    return text.replace(/\s+/g, '_').toLowerCase();
   };
 
   const redirectToCategory = () => {
     navigation({
-      to: "/organizers/$category",
+      to: '/organizers/$category',
       params: { category: toSnakeCase(title) },
     });
   };

@@ -1,18 +1,18 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
-import { ChevronLeft } from "lucide-react";
-import OrganizerCard from "@/components/organizers-listing/organizer-card";
-import { mockOrganizers } from "../home/_home/organizers";
-import { EventsSearchBar } from "@/components/events-listing";
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { Button } from '@/components/ui/button';
+import { ChevronLeft } from 'lucide-react';
+import OrganizerCard from '@/components/organizers-listing/organizer-card';
+import { mockOrganizers } from '../home/_home/organizers';
+import { EventsSearchBar } from '@/components/events-listing';
 
-export const Route = createFileRoute("/organizers/$category")({
+export const Route = createFileRoute('/organizers/$category')({
   component: () => <OrganizerCategory />,
 });
 
 const titles = {
-  top_organizers: "Top Organizers",
-  beach: "Beach",
-  hiking: "Hiking",
+  top_organizers: 'Top Organizers',
+  beach: 'Beach',
+  hiking: 'Hiking',
 };
 
 const OrganizerCategory = () => {
@@ -31,7 +31,7 @@ const OrganizerCategory = () => {
               variant="secondary"
               size="icon"
               className="rounded-[32px]"
-              onClick={() => navigate({ to: "/home/organizers" })}
+              onClick={() => navigate({ to: '/home/organizers' })}
             >
               <ChevronLeft className="h-7 w-7" />
             </Button>
@@ -41,17 +41,16 @@ const OrganizerCategory = () => {
       </div>
       <div className="min-h-[calc(100vh_-_65px)] pt-[145px]">
         <div className="grid place-items-center grid-cols-auto-fit gap-4 p-4">
-          {mockOrganizers.map(
-            ({ name, avatarUrl, noOfEvents, rating }, idx) => (
-              <OrganizerCard
-                key={idx}
-                name={name}
-                avatarUrl={avatarUrl}
-                noOfEvents={noOfEvents}
-                rating={rating}
-              />
-            )
-          )}
+          {mockOrganizers.map(({ name, avatarUrl, noOfEvents, rating, id }) => (
+            <OrganizerCard
+              key={id}
+              id={id}
+              name={name}
+              avatarUrl={avatarUrl}
+              noOfEvents={noOfEvents}
+              rating={rating}
+            />
+          ))}
         </div>
       </div>
     </div>

@@ -21,7 +21,7 @@ const TabNavigation = () => {
           {tabs.map((tab) => (
             <li key={tab.id} className="flex-none first:pl-0 last:pr-0">
               <Link to={tab.href}>
-                {({ isActive }) => {
+                {({ isActive }: { isActive: boolean }) => {
                   return (
                     <button
                       className={cn(

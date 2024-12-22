@@ -20,6 +20,7 @@ import { Route as SearchGroupImport } from './routes/search/group'
 import { Route as SearchDestinationImport } from './routes/search/destination'
 import { Route as SearchDateImport } from './routes/search/date'
 import { Route as OrganizersCategoryImport } from './routes/organizers/$category'
+import { Route as OrganizerOrganizerIdImport } from './routes/organizer/$organizerId'
 import { Route as HomeHomeImport } from './routes/home/_home'
 import { Route as EventsGalleryImport } from './routes/events/gallery'
 import { Route as EventsEventIdImport } from './routes/events/$eventId'
@@ -81,6 +82,12 @@ const SearchDateRoute = SearchDateImport.update({
 const OrganizersCategoryRoute = OrganizersCategoryImport.update({
   id: '/organizers/$category',
   path: '/organizers/$category',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const OrganizerOrganizerIdRoute = OrganizerOrganizerIdImport.update({
+  id: '/organizer/$organizerId',
+  path: '/organizer/$organizerId',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -170,6 +177,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/home'
       preLoaderRoute: typeof HomeHomeImport
       parentRoute: typeof HomeRoute
+    }
+    '/organizer/$organizerId': {
+      id: '/organizer/$organizerId'
+      path: '/organizer/$organizerId'
+      fullPath: '/organizer/$organizerId'
+      preLoaderRoute: typeof OrganizerOrganizerIdImport
+      parentRoute: typeof rootRoute
     }
     '/organizers/$category': {
       id: '/organizers/$category'
@@ -325,6 +339,7 @@ export interface FileRoutesByFullPath {
   '/events/$eventId': typeof EventsEventIdRouteWithChildren
   '/events/gallery': typeof EventsGalleryRoute
   '/home': typeof HomeHomeRouteWithChildren
+  '/organizer/$organizerId': typeof OrganizerOrganizerIdRoute
   '/organizers/$category': typeof OrganizersCategoryRoute
   '/search/date': typeof SearchDateRoute
   '/search/destination': typeof SearchDestinationRoute
@@ -344,6 +359,7 @@ export interface FileRoutesByTo {
   '/events/$eventId': typeof EventsEventIdRouteWithChildren
   '/events/gallery': typeof EventsGalleryRoute
   '/home': typeof HomeHomeRouteWithChildren
+  '/organizer/$organizerId': typeof OrganizerOrganizerIdRoute
   '/organizers/$category': typeof OrganizersCategoryRoute
   '/search/date': typeof SearchDateRoute
   '/search/destination': typeof SearchDestinationRoute
@@ -364,6 +380,7 @@ export interface FileRoutesById {
   '/events/gallery': typeof EventsGalleryRoute
   '/home': typeof HomeRouteWithChildren
   '/home/_home': typeof HomeHomeRouteWithChildren
+  '/organizer/$organizerId': typeof OrganizerOrganizerIdRoute
   '/organizers/$category': typeof OrganizersCategoryRoute
   '/search/date': typeof SearchDateRoute
   '/search/destination': typeof SearchDestinationRoute
@@ -385,6 +402,7 @@ export interface FileRouteTypes {
     | '/events/$eventId'
     | '/events/gallery'
     | '/home'
+    | '/organizer/$organizerId'
     | '/organizers/$category'
     | '/search/date'
     | '/search/destination'
@@ -403,6 +421,7 @@ export interface FileRouteTypes {
     | '/events/$eventId'
     | '/events/gallery'
     | '/home'
+    | '/organizer/$organizerId'
     | '/organizers/$category'
     | '/search/date'
     | '/search/destination'
@@ -421,6 +440,7 @@ export interface FileRouteTypes {
     | '/events/gallery'
     | '/home'
     | '/home/_home'
+    | '/organizer/$organizerId'
     | '/organizers/$category'
     | '/search/date'
     | '/search/destination'
@@ -441,6 +461,7 @@ export interface RootRouteChildren {
   EventsEventIdRoute: typeof EventsEventIdRouteWithChildren
   EventsGalleryRoute: typeof EventsGalleryRoute
   HomeRoute: typeof HomeRouteWithChildren
+  OrganizerOrganizerIdRoute: typeof OrganizerOrganizerIdRoute
   OrganizersCategoryRoute: typeof OrganizersCategoryRoute
   SearchDateRoute: typeof SearchDateRoute
   SearchDestinationRoute: typeof SearchDestinationRoute
@@ -454,6 +475,7 @@ const rootRouteChildren: RootRouteChildren = {
   EventsEventIdRoute: EventsEventIdRouteWithChildren,
   EventsGalleryRoute: EventsGalleryRoute,
   HomeRoute: HomeRouteWithChildren,
+  OrganizerOrganizerIdRoute: OrganizerOrganizerIdRoute,
   OrganizersCategoryRoute: OrganizersCategoryRoute,
   SearchDateRoute: SearchDateRoute,
   SearchDestinationRoute: SearchDestinationRoute,
@@ -478,6 +500,7 @@ export const routeTree = rootRoute
         "/events/$eventId",
         "/events/gallery",
         "/home",
+        "/organizer/$organizerId",
         "/organizers/$category",
         "/search/date",
         "/search/destination",
@@ -510,6 +533,9 @@ export const routeTree = rootRoute
         "/home/_home/listing",
         "/home/_home/organizers"
       ]
+    },
+    "/organizer/$organizerId": {
+      "filePath": "organizer/$organizerId.tsx"
     },
     "/organizers/$category": {
       "filePath": "organizers/$category.tsx"

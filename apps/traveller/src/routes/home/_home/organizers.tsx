@@ -1,15 +1,16 @@
 import {
   Category,
   FeaturedOrganizerCard,
-} from "@/components/organizers-listing";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { createFileRoute } from "@tanstack/react-router";
+} from '@/components/organizers-listing';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute("/home/_home/organizers")({
+export const Route = createFileRoute('/home/_home/organizers')({
   component: () => <Organizers />,
 });
 
 type Organizer = {
+  id: string;
   title: string;
   imageUrl: string;
   name: string;
@@ -20,42 +21,46 @@ type Organizer = {
 
 export const mockOrganizers: Organizer[] = [
   {
-    name: "John Doe",
-    imageUrl: "https://loremflickr.com/320/240/beach,bohol",
-    title: "img1",
-    avatarUrl: "https://loremflickr.com/320/240/beach,bohol",
+    id: '1',
+    name: 'John Doe',
+    imageUrl: 'https://loremflickr.com/320/240/beach,bohol',
+    title: 'img1',
+    avatarUrl: 'https://loremflickr.com/320/240/beach,bohol',
     noOfEvents: 6,
-    rating: "4.5",
+    rating: '4.5',
   },
   {
-    name: "Sarah Smith",
-    imageUrl: "https://loremflickr.com/320/240/beach,bohol",
-    title: "img2",
-    avatarUrl: "https://loremflickr.com/320/240/beach,bohol",
+    id: '2',
+    name: 'Sarah Smith',
+    imageUrl: 'https://loremflickr.com/320/240/beach,bohol',
+    title: 'img2',
+    avatarUrl: 'https://loremflickr.com/320/240/beach,bohol',
     noOfEvents: 9,
-    rating: "4.5",
+    rating: '4.5',
   },
   {
-    name: "Mike Johnson",
-    imageUrl: "https://loremflickr.com/320/240/beach,bohol",
-    title: "img3",
-    avatarUrl: "https://loremflickr.com/320/240/beach,bohol",
+    id: '3',
+    name: 'Mike Johnson',
+    imageUrl: 'https://loremflickr.com/320/240/beach,bohol',
+    title: 'img3',
+    avatarUrl: 'https://loremflickr.com/320/240/beach,bohol',
     noOfEvents: 3,
-    rating: "4.5",
+    rating: '4.5',
   },
   {
-    name: "Mike Johnson",
-    imageUrl: "https://loremflickr.com/320/240/beach,bohol",
-    title: "img4",
-    avatarUrl: "https://loremflickr.com/320/240/beach,bohol",
+    id: '4',
+    name: 'Mike Johnson',
+    imageUrl: 'https://loremflickr.com/320/240/beach,bohol',
+    title: 'img4',
+    avatarUrl: 'https://loremflickr.com/320/240/beach,bohol',
     noOfEvents: 2,
-    rating: "4.5",
+    rating: '4.5',
   },
 ];
 
 function Organizers() {
   const getInitial = (name: string) => {
-    return name?.trim().charAt(0).toUpperCase() || "O"; // Fallback to 'O' for Organizer
+    return name?.trim().charAt(0).toUpperCase() || 'O'; // Fallback to 'O' for Organizer
   };
 
   return (
