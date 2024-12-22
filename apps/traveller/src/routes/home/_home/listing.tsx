@@ -78,7 +78,7 @@ function EventListing() {
   return (
     <>
       {/* Filter Buttons */}
-      <div className="px-4 pb-2 pt-4">
+      <div className="px-4 pb-1 pt-8">
         <Categories />
       </div>
       {/* Event Cards */}

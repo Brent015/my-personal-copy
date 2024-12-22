@@ -52,7 +52,7 @@ function Events() {
       <section className="w-full max-w-4xl mx-auto">
         <h1 className="text-xl font-medium mb-4">Featured</h1>
 
-        <div className="flex gap-4 overflow-x-auto pb-4  px-4 snap-x scrollbar-hidden">
+        <div className="flex gap-4 overflow-x-auto pb-4 px-4 snap-x scrollbar-hidden">
           {mockEvents.map((event, index) => (
             <div
               key={index}

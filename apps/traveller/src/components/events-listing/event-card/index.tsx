@@ -1,4 +1,5 @@
 import { DotSeparator } from "@/components/common";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Event } from "@/types/event";
@@ -27,13 +28,14 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
         )}
       </div>
       <div className="p-4 px-3">
-        <div className="flex items-center gap-2 mb-2 justify-between">
-          <Badge
-            variant="secondary"
-            className="bg-[#27B9D71A] rounded-7xl py-2 px-3 text-[#27B9D7] text-sm font-medium m-0"
-          >
-            {event.category}
-          </Badge>
+        <div className="flex gap-2 mb-2 justify-between">
+          <div>
+            <h3 className="text-base font-medium">{event.title}</h3>
+            <p className="text-sm font-medium text-warmGray-700 mb-2">
+              {event.address}
+            </p>
+          </div>
+
           <div className="flex items-center gap-1">
             <span className="text-sm font-medium text-warmGray-700">
               starts at
@@ -44,12 +46,7 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
           </div>
         </div>
 
-        <h3 className="text-base font-medium">{event.title}</h3>
-        <p className="text-sm font-medium text-warmGray-700 mb-2">
-          {event.address}
-        </p>
-
-        <div className="flex items-center gap-4 text-sm text-grayscale-300 font-medium">
+        <div className="flex items-center gap-2 text-sm text-grayscale-300 font-medium">
           {event.rating && (
             <span className="flex items-center gap-1">
               {" "}
@@ -58,9 +55,23 @@ const EventCard: React.FC<{ event: Event }> = ({ event }) => {
             </span>
           )}
           <DotSeparator />
-          <span className="flex items-center gap-1">👤 {event.organizer}</span>
+          <span className="flex items-center gap-2 text-sm">
+            <Avatar className="w-5 h-5">
+              <AvatarImage src="https://github.com/shadcn.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>{" "}
+            <span>Organizer</span>
+          </span>
           <DotSeparator />
           <span>{event.bookings} bookings</span>
+        </div>
+        <div className="pt-4">
+          <Badge
+            variant="secondary"
+            className="bg-[#27B9D71A] rounded-7xl py-1 px-2 text-[#27B9D7] text-sm font-medium m-0"
+          >
+            {event.category}
+          </Badge>
         </div>
       </div>
     </Card>

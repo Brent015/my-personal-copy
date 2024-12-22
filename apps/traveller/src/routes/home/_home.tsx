@@ -17,7 +17,7 @@ function HomeLayout() {
         {/* Navigation Tabs */}
         <TabNavigation />
       </div>
-      <div className="bg-grayscale-700 min-h-[calc(100vh_-_65px)] pt-[145px]">
+      <div className="pb-[65px] bg-grayscale-700 min-h-[calc(100vh_-_65px)] pt-[145px]">
         <Outlet />
       </div>
     </div>

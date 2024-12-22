@@ -30,18 +30,17 @@ export default {
           black: '#101010',
         },
         warmGray: {
-          500: '#F5EAE0',
-          700: '#9F948B',
+          100: "#F8F5F3",
+          500: "#F5EAE0",
+          700: "#9F948B",
         },
-        badge: {
-          lightblue: '#27B9D7',
+        teal: {
+          primary: "#27B9D7",
+          secondary: "#00A9CE",
         },
-        travelcon: {
-          map3: '#FBAD0A',
-        },
-        outline: { primary: '#E4DFDF' },
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        outline: { primary: "#E4DFDF" },
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
