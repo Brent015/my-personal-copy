@@ -1,11 +1,10 @@
-import { Badge } from '@/components/ui/badge';
-import { Square } from 'lucide-react';
-import { ComposableMap, Geographies, Geography } from 'react-simple-maps';
-// import cebuCityGeoJson from '@/constants/cebu-city-geo.json';
+import { Badge } from "@/components/ui/badge";
+import { Square } from "lucide-react";
+import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
 // TODO - replace with actual geo location url/JSON file
 const geoLocatoionUrl =
-  'https://unpkg.com/world-atlas@2.0.2/countries-110m.json';
+  "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
 
 const Destination = () => {
   return (
@@ -33,9 +32,9 @@ const Destination = () => {
                 stroke="#FFF"
                 strokeWidth={0.5}
                 style={{
-                  default: { outline: 'none' },
-                  hover: { fill: '#F53', outline: 'none' },
-                  pressed: { outline: 'none' },
+                  default: { outline: "none" },
+                  hover: { fill: "#F53", outline: "none" },
+                  pressed: { outline: "none" },
                 }}
               />
             ))
