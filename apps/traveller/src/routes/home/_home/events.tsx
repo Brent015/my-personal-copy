@@ -1,6 +1,8 @@
+import { useBottomBarNavigation } from "@/components/common/bottom-bar/context";
 import { FeaturedCard } from "@/components/events-listing";
 import TopEventCard from "@/components/events-listing/top-event";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
 
@@ -47,8 +49,13 @@ const mockEvents = [
 ];
 
 function Events() {
+  const { isNavHidden } = useBottomBarNavigation();
   return (
-    <div className="py-6 px-4">
+    <div
+      className={cn("py-6 px-4", {
+        "pb-[72px]": !isNavHidden,
+      })}
+    >
       <section className="w-full max-w-4xl mx-auto">
         <h1 className="text-xl font-medium mb-4">Featured</h1>
 

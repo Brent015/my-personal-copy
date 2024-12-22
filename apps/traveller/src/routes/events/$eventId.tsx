@@ -1,5 +1,5 @@
-import { DotSeparator } from "@/components/common";
-import { PackageItem } from "@/components/events";
+import { DotSeparator, SelectableCard } from "@/components/common";
+import { PackageDrawer } from "@/components/events";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { createFileRoute } from "@tanstack/react-router";
@@ -17,6 +17,8 @@ function EventPage() {
   const [touchEnd, setTouchEnd] = useState(0);
   const [isSwiping, setIsSwiping] = useState(false);
   const [swipeOffset, setSwipeOffset] = useState(0);
+
+  const [selectedPkg, setSelectedPkg] = useState<number>(1);
 
   const images = Array(8).fill("https://loremflickr.com/320/240/beach,bohol");
 
@@ -191,7 +193,20 @@ function EventPage() {
 
           <div className="space-y-3">
             {[1, 2, 3].map((index) => (
-              <PackageItem key={index} index={index} />
+              <SelectableCard
+                key={index}
+                isSelected={selectedPkg === index}
+                onClick={() => setSelectedPkg(index)}
+              >
+                <div className="space-y-2">
+                  <h3 className="font-semibold text-lg">Package Title</h3>
+                  <h4 className="font-semibold text-2xl">₱ 1,700</h4>
+                  <div className="text-sm text-gray-500 flex items-center gap-1">
+                    <span>🥾</span> Hiking, Diving
+                  </div>
+                  <PackageDrawer packageId={index} />
+                </div>
+              </SelectableCard>
             ))}
           </div>
         </div>
