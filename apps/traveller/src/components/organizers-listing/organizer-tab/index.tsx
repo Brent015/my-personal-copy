@@ -1,11 +1,7 @@
-import React, {
-  useState,
-  ForwardRefExoticComponent,
-  RefAttributes,
-} from 'react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   Mountain,
   TreePine,
@@ -13,71 +9,70 @@ import {
   ChevronDown,
   ChevronUp,
   ArrowRight,
-  LucideProps,
-} from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { cn } from '@/lib/utils';
-import ReviewCard, { ReviewCardProps as Review } from '../review-card';
-import { Button } from '@/components/ui/button';
-import Destination from '../destination';
-import EventCard from '../event-card';
+} from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
+import ReviewCard, { ReviewCardProps as Review } from "../review-card";
+import { Button } from "@/components/ui/button";
+import Destination from "../destination";
+import EventCard from "../event-card";
 
 const activities = [
-  { id: 'trekking', name: '🏖️ Trekking' },
-  { id: 'diving', name: '🏖️ Diving' },
-  { id: 'photography', name: '🏖️ Photography' },
-  { id: 'camping', name: '🏖️ Camping' },
-  { id: 'videography', name: '🏖️ Videography' },
+  { id: "trekking", name: "🏖️ Trekking" },
+  { id: "diving", name: "🏖️ Diving" },
+  { id: "photography", name: "🏖️ Photography" },
+  { id: "camping", name: "🏖️ Camping" },
+  { id: "videography", name: "🏖️ Videography" },
 ];
 
 const OrganizerTab = () => {
   const [expandReviews, setExpandReviews] = useState(false);
 
   const tabs = [
-    { value: 'events', label: 'Events' },
-    { value: 'overview', label: 'Overview' },
+    { value: "events", label: "Events" },
+    { value: "overview", label: "Overview" },
   ];
 
   const eventCategories = [
-    { icon: Mountain, name: 'Beach', eventCount: 3 },
-    { icon: Mountain, name: 'Hiking', eventCount: 5 },
-    { icon: Landmark, name: 'Historical', eventCount: 2 },
-    { icon: TreePine, name: 'Nature', eventCount: 4 },
+    { icon: Mountain, name: "Beach", eventCount: 3 },
+    { icon: Mountain, name: "Hiking", eventCount: 5 },
+    { icon: Landmark, name: "Historical", eventCount: 2 },
+    { icon: TreePine, name: "Nature", eventCount: 4 },
   ];
 
   const reviews: Review[] = [
     {
-      avatar: 'https://loremflickr.com/320/240/beach,bohol',
-      name: 'John Doe',
+      avatar: "https://loremflickr.com/320/240/beach,bohol",
+      name: "John Doe",
       rating: 4.95,
-      date: '01/01/2025',
-      description: 'Amazing experience with the team! Highly recommended.',
+      date: "01/01/2025",
+      description: "Amazing experience with the team! Highly recommended.",
     },
     {
-      avatar: 'https://loremflickr.com/320/240/beach,bohol',
-      name: 'Jane Smith',
+      avatar: "https://loremflickr.com/320/240/beach,bohol",
+      name: "Jane Smith",
       rating: 4.95,
-      date: '01/01/2025',
-      description: 'Fantastic organization and great events!',
+      date: "01/01/2025",
+      description: "Fantastic organization and great events!",
     },
     {
-      avatar: 'https://loremflickr.com/320/240/beach,bohol',
-      name: 'Red John',
+      avatar: "https://loremflickr.com/320/240/beach,bohol",
+      name: "Red John",
       rating: 4.69,
-      date: '01/01/2025',
-      description: 'Fantastic organization and great events!',
+      date: "01/01/2025",
+      description: "Fantastic organization and great events!",
     },
   ];
 
   const faqs = [
     {
-      question: 'How do I register for an event?',
-      answer: 'You can register directly through our website or mobile app.',
+      question: "How do I register for an event?",
+      answer: "You can register directly through our website or mobile app.",
     },
     {
-      question: 'Are events refundable?',
+      question: "Are events refundable?",
       answer:
-        'Most events have a flexible cancellation policy up to 7 days before the event.',
+        "Most events have a flexible cancellation policy up to 7 days before the event.",
     },
   ];
 
@@ -89,10 +84,10 @@ const OrganizerTab = () => {
             key={idx}
             value={tab.value}
             className={cn(
-              'relative py-1 px-2 text-xl font-medium transition-colors duration-200',
-              'focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 rounded',
-              'text-grayscale-400 hover:text-gray-600',
-              'data-[state=active]:text-yellow-primary data-[state=active]:bg-[#FBC50A1A] data-[state=active]:shadow-none'
+              "relative py-1 px-2 text-xl font-medium transition-colors duration-200",
+              "focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 rounded",
+              "text-grayscale-400 hover:text-gray-600",
+              "data-[state=active]:text-yellow-primary data-[state=active]:bg-[#FBC50A1A] data-[state=active]:shadow-none"
             )}
           >
             {tab.label}
@@ -122,7 +117,7 @@ const OrganizerTab = () => {
               <Badge
                 key={activity.id}
                 variant="secondary"
-                className="bg-badge-lightblue/10 p-2 text-center rounded-7xl"
+                className="bg-teal-primary/10 p-2 text-center rounded-7xl"
               >
                 <span className="text-badge-lightblue">{activity.name}</span>
               </Badge>
