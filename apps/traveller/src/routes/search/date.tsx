@@ -25,11 +25,7 @@ function SearchByDate() {
           <h1 className="text-xl font-medium">Date</h1>
         </header>
       }
-      content={
-        <div className="space-y-6">
-          <DatePicker />
-        </div>
-      }
+      content={<DatePicker />}
       footer={
         <footer className="bg-[#EBB7040D] p-4 flex items-center border-t border-t-outline-primary">
           <div className="flex-1 flex items-center gap-2">

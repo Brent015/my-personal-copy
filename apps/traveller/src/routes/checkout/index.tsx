@@ -1,14 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import ManageGuest from "@/components/checkout/manage-guest";
+import SelectDates from "@/components/checkout/select-dates";
+import SelectPackage from "@/components/checkout/select-package";
 import { DotSeparator, SelectableCard } from "@/components/common";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { Edit2, Star, Users } from "lucide-react";
+import { Star, Users } from "lucide-react";
 import { useState } from "react";
+import travelCoin from "@/assets/images/travelcoins.png";
 
 export const Route = createFileRoute("/checkout/")({
   component: TravelPayment,
@@ -79,9 +82,7 @@ export default function TravelPayment() {
               <div className="font-medium text-lg">Package Title</div>
               <div className="text-grayscale-300 font-medium">Sub-info</div>
             </div>
-            <Button variant="ghost" size="sm" className="h-8 px-2 ">
-              <Edit2 className="h-4 w-4 text-yellow-primary" />
-            </Button>
+            <SelectPackage />
           </div>
 
           <div className="flex justify-between items-center">
@@ -91,25 +92,7 @@ export default function TravelPayment() {
                 No dates selected
               </div>
             </div>
-            <Button
-              variant="secondary"
-              className={cn(
-                // Base styles
-                "px-4",
-                // Custom styling using Tailwind's core classes
-                "bg-[#FBC50A33] text-yellow-secondary",
-                "active:bg-yellow-100",
-                // Touch-friendly tap state for mobile
-                "touch-manipulation",
-                // Improved text visibility
-                "text-base font-medium",
-                // Remove hover states on mobile
-                "hover:bg-yellow-200"
-                // Custom className override
-              )}
-            >
-              Select dates
-            </Button>
+            <SelectDates />
           </div>
 
           <div className="flex justify-between items-center">
@@ -117,9 +100,7 @@ export default function TravelPayment() {
               <div className="font-medium">Buddies</div>
               <div className="text-grayscale-300 font-medium">2 buddies</div>
             </div>
-            <Button variant="ghost" size="sm" className="h-8 px-2">
-              <Edit2 className="h-4 w-4 text-yellow-primary" />
-            </Button>
+            <ManageGuest />
           </div>
         </div>
       </div>
@@ -185,11 +166,16 @@ export default function TravelPayment() {
           </RadioGroup>
 
           <div className="flex items-center gap-2 mt-4">
-            <Input placeholder="Add TravelCoin amount" className="flex-1" />
+            <Input
+              type="number"
+              placeholder="Add TravelCoin amount"
+              className="flex-1  text-base"
+            />
             <Button variant="secondary">Apply</Button>
           </div>
-          <div className="flex items-center gap-2 text-sm text-grayscale-300">
-            <div className="h-5 w-5 rounded-full bg-yellow-400" />
+          <div className="flex items-center text-sm text-grayscale-300">
+            {/* <div className="h-5 w-5 rounded-full bg-yellow-400" /> */}
+            <img src={travelCoin} alt="travelcoin logo" className="w-5 h-5" />
             100 available
           </div>
         </div>

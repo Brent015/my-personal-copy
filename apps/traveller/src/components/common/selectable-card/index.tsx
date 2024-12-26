@@ -25,7 +25,7 @@ const SelectableCard = React.forwardRef<HTMLDivElement, SelectableCardProps>(
       <Card
         ref={ref}
         className={cn(
-          "p-4 relative justify-between flex gap-2",
+          "p-3 relative justify-between flex gap-2",
           isSelected && activeColor,
           className
         )}

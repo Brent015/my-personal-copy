@@ -9,7 +9,7 @@ const SearchLayout: FC<{
   return (
     <div className={`flex flex-col bg-[${bgColor}] min-h-[calc(100vh_-_65px)]`}>
       {header}
-      <div className="p-4 flex-1 max-h-[calc(100vh_-_214px)] overflow-auto">
+      <div className="pb-4 px-4 flex-1 max-h-[calc(100vh_-_214px)] overflow-auto">
         {content}
       </div>
       <div>{footer}</div>

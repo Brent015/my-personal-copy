@@ -1,14 +1,23 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { GroupsCounter, SearchLayout } from "@/components/search";
+import { GuestCounter, SearchLayout } from "@/components/search";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
+import { GuestType } from "@/components/search/guest-counter/types";
+import { useState } from "react";
+import { defaultGuests } from "@/components/search/guest-counter/defaultGuests";
 
 export const Route = createFileRoute("/search/group")({
   component: SearchByGroup,
 });
 
 function SearchByGroup() {
+  const [guests, setGuests] = useState<GuestType[]>(defaultGuests);
+
+  const handleGuestsChange = (newGuests: GuestType[]) => {
+    setGuests(newGuests);
+    // Additional logic here if needed
+  };
   return (
     <SearchLayout
       bgColor="white"
@@ -26,7 +35,14 @@ function SearchByGroup() {
           <h1 className="text-xl font-medium">Group</h1>
         </header>
       }
-      content={<GroupsCounter />}
+      content={
+        <GuestCounter
+          guests={guests}
+          onChange={handleGuestsChange}
+          minValue={0}
+          maxValue={10}
+        />
+      }
       footer={
         <footer className="bg-[#EBB7040D] p-4 flex items-center border-t border-t-outline-primary">
           <div className="flex-1">

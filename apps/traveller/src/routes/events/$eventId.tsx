@@ -1,15 +1,47 @@
-import { DotSeparator, SelectableCard } from "@/components/common";
-import { PackageDrawer } from "@/components/events";
+import { DotSeparator } from "@/components/common";
+import { PackageSelector } from "@/components/events/package-selector";
+import {
+  DateOption,
+  Package,
+} from "@/components/events/package-selector/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { CalendarIcon, MapPin, Star, Users } from "lucide-react";
+import { MapPin, Star, Users } from "lucide-react";
 import { TouchEvent, useCallback, useEffect, useState } from "react";
 
 export const Route = createFileRoute("/events/$eventId")({
   component: EventPage,
 });
+
+// Usage Example:
+const sampleDates: DateOption[] = [
+  { date: "2024-10-03", label: "3 Oct" },
+  { date: "2024-10-04", label: "4 Oct" },
+  { date: "2024-10-05", label: "5 Oct" },
+];
+
+const samplePackages: Package[] = [
+  {
+    id: 1,
+    title: "Package Title",
+    price: 1700,
+    activities: ["Hiking", "Diving"],
+  },
+  {
+    id: 2,
+    title: "Package Title",
+    price: 1800,
+    activities: ["Hiking", "Diving"],
+  },
+  {
+    id: 3,
+    title: "Package Title",
+    price: 1900,
+    activities: ["Hiking", "Diving"],
+  },
+];
 
 function EventPage() {
   const [currentImage, setCurrentImage] = useState(0);
@@ -18,8 +50,22 @@ function EventPage() {
   const [isSwiping, setIsSwiping] = useState(false);
   const [swipeOffset, setSwipeOffset] = useState(0);
 
-  const [selectedPkg, setSelectedPkg] = useState<number>(1);
+  const [selectedDate, setSelectedDate] = useState<string>(
+    sampleDates[0]?.date || ""
+  );
+  const [selectedPackageId, setSelectedPackageId] = useState<number | null>(
+    null
+  );
 
+  const handleDateChange = (date: string) => {
+    setSelectedDate(date);
+    // Additional logic here if needed
+  };
+
+  const handlePackageSelect = (packageId: number | null) => {
+    setSelectedPackageId(packageId);
+    // Additional logic here if needed
+  };
   const images = Array(8).fill("https://loremflickr.com/320/240/beach,bohol");
 
   // Auto advance carousel
@@ -163,53 +209,18 @@ function EventPage() {
 
         <div className="h-px bg-gray-200 mx-4" />
         <div className="px-4 py-3">
-          <h2 className="font-semibold mb-2">Description Heading</h2>
+          <h2 className="text-xl font-semibold mb-2">Description Heading</h2>
           <p className="text-gray-600 text-sm">Description here</p>
         </div>
 
-        <div className="px-4 py-3">
-          <h2 className="font-semibold mb-3">Packages</h2>
-
-          <div className="flex gap-2 mb-4 text-sm">
-            <Button
-              variant="outline"
-              className="bg-yellow-400 border-yellow-400 text-black p-2"
-            >
-              3 Oct
-            </Button>
-            <Button variant="outline" className="bg-white p-2">
-              4 Oct
-            </Button>
-            <Button variant="outline" className="bg-white p-2">
-              5 Oct
-            </Button>
-            <Button variant="outline" className="bg-black text-white p-2">
-              <CalendarIcon />
-              All dates
-            </Button>
-          </div>
-
-          <div className="text-sm text-gray-500 mb-2">Package Type</div>
-
-          <div className="space-y-3">
-            {[1, 2, 3].map((index) => (
-              <SelectableCard
-                key={index}
-                isSelected={selectedPkg === index}
-                onClick={() => setSelectedPkg(index)}
-              >
-                <div className="space-y-2">
-                  <h3 className="font-semibold text-lg">Package Title</h3>
-                  <h4 className="font-semibold text-2xl">₱ 1,700</h4>
-                  <div className="text-sm text-gray-500 flex items-center gap-1">
-                    <span>🥾</span> Hiking, Diving
-                  </div>
-                  <PackageDrawer packageId={index} />
-                </div>
-              </SelectableCard>
-            ))}
-          </div>
-        </div>
+        <PackageSelector
+          packages={samplePackages}
+          dates={sampleDates}
+          selectedDate={selectedDate}
+          selectedPackageId={selectedPackageId}
+          onDateChange={handleDateChange}
+          onPackageSelect={handlePackageSelect}
+        />
 
         <div className="px-4 py-3">
           <div className="flex justify-between items-center mb-4">
@@ -247,9 +258,11 @@ function EventPage() {
             <div className="text-xs text-gray-500">per night</div>
             <button className="text-blue-400 text-sm">More details →</button>
           </div>
-          <Button className="bg-yellow-400 hover:bg-yellow-500 text-black">
-            Book now
-          </Button>
+          <Link to="/checkout">
+            <Button className="bg-yellow-400 hover:bg-yellow-500 text-black">
+              Book now
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
