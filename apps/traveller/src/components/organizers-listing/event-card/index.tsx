@@ -1,20 +1,13 @@
-import React, { ForwardRefExoticComponent, RefAttributes } from 'react';
+import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { LucideProps } from 'lucide-react';
 
 interface EventCardProps {
-  icon: ForwardRefExoticComponent<
-    Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
-  >;
+  image: string;
   name: string;
   eventCount: number;
 }
 
-const EventCard: React.FC<EventCardProps> = ({
-  icon: Icon,
-  name,
-  eventCount,
-}) => {
+const EventCard: React.FC<EventCardProps> = ({ image, name, eventCount }) => {
   const getRandomColor = () => {
     const colors = ['#27B9D733', '#D77B2733', '#40D72733', '#BE27D733'];
     return colors[Math.floor(Math.random() * colors.length)];
@@ -27,7 +20,7 @@ const EventCard: React.FC<EventCardProps> = ({
         style={{ backgroundColor: getRandomColor() }}
       >
         <CardContent className="text-center p-0">
-          <Icon size={48} className="text-primary" />
+          <img src={image} alt={name} width={48} height={48} />
         </CardContent>
       </Card>
       <div>
