@@ -1,9 +1,9 @@
-import { 
-    pgTable,
-    varchar,
-    timestamp,
-    integer,
-    datetime
+import {
+  pgTable,
+  varchar,
+  timestamp,
+  integer,
+  date
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 import {
@@ -17,8 +17,8 @@ export const eventSchedules = pgTable("eventSchedules", {
   id: varchar("ID", { length: 12 }).primaryKey(),
   eventId: varchar("EventID", { length: 12 }),
   imageId: varchar("ImageID", { length: 12 }),
-  dateFrom: datetime("DateFrom"),
-  dateTo: datetime("DateTo"),
+  dateFrom: date("DateFrom"),
+  dateTo: date("DateTo"),
   maxJoiners: integer("MaxJoiners"),
   status: varchar("Status", { length: 50 }),
   createdAt: timestamp("created_at").defaultNow(),

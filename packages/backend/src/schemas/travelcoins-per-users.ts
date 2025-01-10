@@ -1,8 +1,8 @@
 import {
-    pgTable,
-    varchar,
-    integer,
-    datetime
+  pgTable,
+  varchar,
+  integer,
+  date
 } from "drizzle-orm/pg-core";
 
 export const travelCoinsPerUser = pgTable("travelCoinsPerUser", {
@@ -11,6 +11,6 @@ export const travelCoinsPerUser = pgTable("travelCoinsPerUser", {
   totalAvailable: integer("TotalAvailable"),
   totalAmount: integer("TotalAmount"),
   totalUsed: integer("TotalUsed"),
-  expiryDate: datetime("ExpiryDate"),
+  expiryDate: date("ExpiryDate"),
   tier: varchar("Tier", { length: 50 }) // bronze, silver, gold, platinum
 });

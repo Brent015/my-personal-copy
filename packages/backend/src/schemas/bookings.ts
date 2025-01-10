@@ -1,16 +1,12 @@
-import { 
-  pgTable, 
-  varchar, 
-  timestamp, 
-  integer, 
-  datetime,
+import {
+  pgTable,
+  varchar,
+  timestamp,
+  integer,
+  date,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
-import { events } from "../schemas/events";
-import { eventPackages } from "../schemas/event-packages";
-import { guests } from "../schemas/guests";
 import {
-  relations,
   events,
   eventPackages,
   guests,
@@ -28,7 +24,7 @@ export const bookings = pgTable("bookings", {
   guestId: varchar("GuestID", { length: 12 }),
   paymentId: varchar("PaymentID", { length: 12 }),
   status: varchar("Status", { length: 20 }), // pending, confirmed, cancelled
-  bookingDate: datetime("BookingDate"),
+  bookingDate: date("BookingDate"),
   totalGuests: integer("TotalGuests"),
   reviewStatus: varchar("ReviewStatus", { length: 15 }),
   createdAt: timestamp("created_at").defaultNow(),

@@ -1,9 +1,9 @@
 import {
-    pgTable,
-    varchar,
-    timestamp,
-    decimal,
-    datetime
+  pgTable,
+  varchar,
+  timestamp,
+  decimal,
+  date
 } from "drizzle-orm/pg-core";
 
 export const eventPackageDiscount = pgTable("eventPackageDiscount", {
@@ -11,7 +11,7 @@ export const eventPackageDiscount = pgTable("eventPackageDiscount", {
   discountName: varchar("DiscountName", { length: 255 }),
   discountType: varchar("DiscountType", { length: 50 }),
   discountValue: decimal("DiscountValue"),
-  validity: datetime("Validity"),
+  validity: date("Validity"),
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow()
 });

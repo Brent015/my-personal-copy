@@ -1,0 +1,2253 @@
+{
+  "id": "07bb8884-ae19-4beb-bbdc-84a6b95460c8",
+  "prevId": "be8863d9-e140-49f1-a1e2-eb30376a65cc",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.activities": {
+      "name": "activities",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Title": {
+          "name": "Title",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ImageID": {
+          "name": "ImageID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.activityLogs": {
+      "name": "activityLogs",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "EntityType": {
+          "name": "EntityType",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "EntityID": {
+          "name": "EntityID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "UserID": {
+          "name": "UserID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "UserType": {
+          "name": "UserType",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ActionType": {
+          "name": "ActionType",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Description": {
+          "name": "Description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "OldValue": {
+          "name": "OldValue",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "NewValue": {
+          "name": "NewValue",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "UserAgent": {
+          "name": "UserAgent",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.bookings": {
+      "name": "bookings",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "EventID": {
+          "name": "EventID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "EventScheduleID": {
+          "name": "EventScheduleID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "EventPackageID": {
+          "name": "EventPackageID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "GuestID": {
+          "name": "GuestID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "PaymentID": {
+          "name": "PaymentID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Status": {
+          "name": "Status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "BookingDate": {
+          "name": "BookingDate",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TotalGuests": {
+          "name": "TotalGuests",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ReviewStatus": {
+          "name": "ReviewStatus",
+          "type": "varchar(15)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.collection": {
+      "name": "collection",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "BookingID": {
+          "name": "BookingID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "EventScheduleID": {
+          "name": "EventScheduleID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TotalAmount": {
+          "name": "TotalAmount",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AmountPaid": {
+          "name": "AmountPaid",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Balance": {
+          "name": "Balance",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Status": {
+          "name": "Status",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.coordinatorPerAgency": {
+      "name": "coordinatorPerAgency",
+      "schema": "",
+      "columns": {
+        "CoordinatorID": {
+          "name": "CoordinatorID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AgencyID": {
+          "name": "AgencyID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Status": {
+          "name": "Status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.coordinators": {
+      "name": "coordinators",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "TelegramID": {
+          "name": "TelegramID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FullName": {
+          "name": "FullName",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ShortDescription": {
+          "name": "ShortDescription",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Role": {
+          "name": "Role",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Status": {
+          "name": "Status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ImageID": {
+          "name": "ImageID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.disbursement": {
+      "name": "disbursement",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "OrganizerID": {
+          "name": "OrganizerID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AgencyID": {
+          "name": "AgencyID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Amount": {
+          "name": "Amount",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "PayoutAccountID": {
+          "name": "PayoutAccountID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Status": {
+          "name": "Status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ServiceCharge": {
+          "name": "ServiceCharge",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.eventPackageActivities": {
+      "name": "eventPackageActivities",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "EventPackageID": {
+          "name": "EventPackageID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ActivityID": {
+          "name": "ActivityID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.eventPackageDiscount": {
+      "name": "eventPackageDiscount",
+      "schema": "",
+      "columns": {
+        "EventPackageID": {
+          "name": "EventPackageID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "DiscountName": {
+          "name": "DiscountName",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "DiscountType": {
+          "name": "DiscountType",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "DiscountValue": {
+          "name": "DiscountValue",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Validity": {
+          "name": "Validity",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.eventPackagePaymentConfig": {
+      "name": "eventPackagePaymentConfig",
+      "schema": "",
+      "columns": {
+        "EventPackageID": {
+          "name": "EventPackageID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Downpayment": {
+          "name": "Downpayment",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AllowFullPayment": {
+          "name": "AllowFullPayment",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "GuestType": {
+          "name": "GuestType",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Description": {
+          "name": "Description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AdminFeeValue": {
+          "name": "AdminFeeValue",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "PaymentFeeValue": {
+          "name": "PaymentFeeValue",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.eventPackages": {
+      "name": "eventPackages",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "EventID": {
+          "name": "EventID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Title": {
+          "name": "Title",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Duration": {
+          "name": "Duration",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Desc1ID": {
+          "name": "Desc1ID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Desc2ID": {
+          "name": "Desc2ID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Desc3ID": {
+          "name": "Desc3ID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Desc4ID": {
+          "name": "Desc4ID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Desc5ID": {
+          "name": "Desc5ID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Price": {
+          "name": "Price",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Status": {
+          "name": "Status",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.eventScheduleAssignments": {
+      "name": "eventScheduleAssignments",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "CoordinatorID": {
+          "name": "CoordinatorID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "EventScheduleID": {
+          "name": "EventScheduleID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LongDescID": {
+          "name": "LongDescID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "BookingID": {
+          "name": "BookingID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TransportationID": {
+          "name": "TransportationID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.eventScheduleCoordinators": {
+      "name": "eventScheduleCoordinators",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "TelegramID": {
+          "name": "TelegramID",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "CoordinatorID": {
+          "name": "CoordinatorID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "EventScheduleID": {
+          "name": "EventScheduleID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.eventSchedules": {
+      "name": "eventSchedules",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "EventID": {
+          "name": "EventID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ImageID": {
+          "name": "ImageID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "DateFrom": {
+          "name": "DateFrom",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "DateTo": {
+          "name": "DateTo",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "MaxJoiners": {
+          "name": "MaxJoiners",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Status": {
+          "name": "Status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.events": {
+      "name": "events",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Title": {
+          "name": "Title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ShortDescription": {
+          "name": "ShortDescription",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LocationId": {
+          "name": "LocationId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "LongDescription": {
+          "name": "LongDescription",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "AgencyId": {
+          "name": "AgencyId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Longitude": {
+          "name": "Longitude",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Latitude": {
+          "name": "Latitude",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Distance": {
+          "name": "Distance",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "Visibility": {
+          "name": "Visibility",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.FAQHeader": {
+      "name": "FAQHeader",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "EventID": {
+          "name": "EventID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.FAQLine": {
+      "name": "FAQLine",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "FaqID": {
+          "name": "FaqID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Question": {
+          "name": "Question",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Answer": {
+          "name": "Answer",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "OrderNum": {
+          "name": "OrderNum",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.guestReview": {
+      "name": "guestReview",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "EventID": {
+          "name": "EventID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "EventScheduleID": {
+          "name": "EventScheduleID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "EventPackageID": {
+          "name": "EventPackageID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "BookingID": {
+          "name": "BookingID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Rate": {
+          "name": "Rate",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LongDescID": {
+          "name": "LongDescID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "GuestID": {
+          "name": "GuestID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ReviewFor": {
+          "name": "ReviewFor",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.guests": {
+      "name": "guests",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "TelegramID": {
+          "name": "TelegramID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Name": {
+          "name": "Name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Age": {
+          "name": "Age",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Gender": {
+          "name": "Gender",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LastActivity": {
+          "name": "LastActivity",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ReferredBy": {
+          "name": "ReferredBy",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ReferralCode": {
+          "name": "ReferralCode",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.image": {
+      "name": "image",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "EventID": {
+          "name": "EventID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "OrganizerID": {
+          "name": "OrganizerID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Author": {
+          "name": "Author",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Extension": {
+          "name": "Extension",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Size": {
+          "name": "Size",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "BlobID": {
+          "name": "BlobID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Type": {
+          "name": "Type",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Url": {
+          "name": "Url",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.longtext": {
+      "name": "longtext",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Text": {
+          "name": "Text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.payments": {
+      "name": "payments",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "BookingID": {
+          "name": "BookingID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Amount": {
+          "name": "Amount",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Description": {
+          "name": "Description",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.payoutAccount": {
+      "name": "payoutAccount",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "BankName": {
+          "name": "BankName",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AgencyID": {
+          "name": "AgencyID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AccountNumber": {
+          "name": "AccountNumber",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AccountName": {
+          "name": "AccountName",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.payout": {
+      "name": "payout",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "AgencyID": {
+          "name": "AgencyID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AccountNumber": {
+          "name": "AccountNumber",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AccountName": {
+          "name": "AccountName",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Status": {
+          "name": "Status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.referralBonus": {
+      "name": "referralBonus",
+      "schema": "",
+      "columns": {
+        "OReferred": {
+          "name": "OReferred",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "OReferrer": {
+          "name": "OReferrer",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TReffered": {
+          "name": "TReffered",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TRefferer": {
+          "name": "TRefferer",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.referralLogs": {
+      "name": "referralLogs",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "ReferrerID": {
+          "name": "ReferrerID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ReferredID": {
+          "name": "ReferredID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Type": {
+          "name": "Type",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "BookingID": {
+          "name": "BookingID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Status": {
+          "name": "Status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'pending'"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.tourAgency": {
+      "name": "tourAgency",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Name": {
+          "name": "Name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "LongDescID": {
+          "name": "LongDescID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ImageID": {
+          "name": "ImageID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "OrganizerID": {
+          "name": "OrganizerID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "VerificationStatus": {
+          "name": "VerificationStatus",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ReferralCode": {
+          "name": "ReferralCode",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.tourOrganizer": {
+      "name": "tourOrganizer",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "FullName": {
+          "name": "FullName",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Email": {
+          "name": "Email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TelegramID": {
+          "name": "TelegramID",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ProfileImageID": {
+          "name": "ProfileImageID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "PhoneNumber": {
+          "name": "PhoneNumber",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AgencyID": {
+          "name": "AgencyID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Accreditation": {
+          "name": "Accreditation",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "VerificationmageID": {
+          "name": "VerificationmageID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "IsOwner": {
+          "name": "IsOwner",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.transactionLogs": {
+      "name": "transactionLogs",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "GatewayFee": {
+          "name": "GatewayFee",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ServiceFee": {
+          "name": "ServiceFee",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "GrossAmount": {
+          "name": "GrossAmount",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "NetAmount": {
+          "name": "NetAmount",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Source": {
+          "name": "Source",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Destination": {
+          "name": "Destination",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "OrganizerID": {
+          "name": "OrganizerID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "MovementType": {
+          "name": "MovementType",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TransactionType": {
+          "name": "TransactionType",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TransactionID": {
+          "name": "TransactionID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Type": {
+          "name": "Type",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.transportationPerAgency": {
+      "name": "transportationPerAgency",
+      "schema": "",
+      "columns": {
+        "TransportationID": {
+          "name": "TransportationID",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "AgencyID": {
+          "name": "AgencyID",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Status": {
+          "name": "Status",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.transportation": {
+      "name": "transportation",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "ImageID": {
+          "name": "ImageID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TelegramID": {
+          "name": "TelegramID",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FullName": {
+          "name": "FullName",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "PlateNumber": {
+          "name": "PlateNumber",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "MaxSeat": {
+          "name": "MaxSeat",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Model": {
+          "name": "Model",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Color": {
+          "name": "Color",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Location": {
+          "name": "Location",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Status": {
+          "name": "Status",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.travelCoinsEarningRates": {
+      "name": "travelCoinsEarningRates",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "SpendingRate": {
+          "name": "SpendingRate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "CoinsPerRate": {
+          "name": "CoinsPerRate",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.travelCoinsMembershipTiers": {
+      "name": "travelCoinsMembershipTiers",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "Name": {
+          "name": "Name",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "MinCoins": {
+          "name": "MinCoins",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "MaxCoins": {
+          "name": "MaxCoins",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "MinEvents": {
+          "name": "MinEvents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "MaxEvents": {
+          "name": "MaxEvents",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "BonusRate": {
+          "name": "BonusRate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.travelCoinsOrganizerEarnings": {
+      "name": "travelCoinsOrganizerEarnings",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "CoinsPerParticipant": {
+          "name": "CoinsPerParticipant",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.travelCoinsOrganizerRedemption": {
+      "name": "travelCoinsOrganizerRedemption",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "UsersPerCoin": {
+          "name": "UsersPerCoin",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "NewEventCost": {
+          "name": "NewEventCost",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "FreeEventLimit": {
+          "name": "FreeEventLimit",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.travelCoinsPerUser": {
+      "name": "travelCoinsPerUser",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "UserID": {
+          "name": "UserID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TotalAvailable": {
+          "name": "TotalAvailable",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TotalAmount": {
+          "name": "TotalAmount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TotalUsed": {
+          "name": "TotalUsed",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ExpiryDate": {
+          "name": "ExpiryDate",
+          "type": "date",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Tier": {
+          "name": "Tier",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.travelCoinsRedemptionRates": {
+      "name": "travelCoinsRedemptionRates",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "DiscountRate": {
+          "name": "DiscountRate",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "MinimumRedemption": {
+          "name": "MinimumRedemption",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.travelCoinsReferralRewards": {
+      "name": "travelCoinsReferralRewards",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "UserType": {
+          "name": "UserType",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ReferrerCoins": {
+          "name": "ReferrerCoins",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "RefereeCoins": {
+          "name": "RefereeCoins",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.travelCoinsTransactions": {
+      "name": "travelCoinsTransactions",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "UserID": {
+          "name": "UserID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TransactionType": {
+          "name": "TransactionType",
+          "type": "varchar(50)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "TransactionID": {
+          "name": "TransactionID",
+          "type": "varchar(12)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "EntryType": {
+          "name": "EntryType",
+          "type": "varchar(10)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "Amount": {
+          "name": "Amount",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.voucherConversion": {
+      "name": "voucherConversion",
+      "schema": "",
+      "columns": {
+        "ID": {
+          "name": "ID",
+          "type": "varchar(12)",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "CoinsPerBatch": {
+          "name": "CoinsPerBatch",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "VoucherValue": {
+          "name": "VoucherValue",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "VouchersPerBatch": {
+          "name": "VouchersPerBatch",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

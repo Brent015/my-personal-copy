@@ -1,6 +1,5 @@
 export * from './activities';
 export * from './activity-logs';
-export * from './blobs';
 export * from './bookings';
 export * from './collections';
 export * from './coordinator-per-agency';

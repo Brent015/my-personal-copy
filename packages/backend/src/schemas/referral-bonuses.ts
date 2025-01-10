@@ -1,7 +1,7 @@
 import {
-    pgTable,
-    integer,
-    datetime
+  pgTable,
+  integer,
+  date
 } from "drizzle-orm/pg-core";
 
 export const referralBonus = pgTable("referralBonus", {
@@ -9,5 +9,5 @@ export const referralBonus = pgTable("referralBonus", {
   oReferrer: integer("OReferrer"),
   tReferred: integer("TReffered"),
   tRefferer: integer("TRefferer"),
-  createdAt: datetime("created_at").defaultNow()
+  createdAt: date("created_at").defaultNow()
 });

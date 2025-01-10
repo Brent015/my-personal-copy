@@ -2,7 +2,7 @@
 
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
-import * as schemas from "./schemas";
+import * as schemas from "../../backend/src/schemas";
 import env from "./env";
 
 // Create a PostgreSQL connection pool
